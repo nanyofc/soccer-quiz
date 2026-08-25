@@ -6,6 +6,9 @@
 
 <title>南陽FC サッカールール クイズラリー</title>
 
+<!-- LIFF SDK -->
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
 <style>
 :root{
   --red:#c60012;
@@ -143,6 +146,24 @@ p{
   font-weight:800;
 }
 
+/* QR読み取りボタン */
+.scan-button{
+  width:100%;
+  margin-top:25px;
+  padding:18px;
+  background:var(--green);
+  color:#fff;
+  border:none;
+  border-radius:16px;
+  font-size:18px;
+  font-weight:900;
+  box-shadow:0 5px 15px rgba(0,0,0,.12);
+}
+
+.scan-button:active{
+  transform:scale(.98);
+}
+
 .center{
   text-align:center;
 }
@@ -226,7 +247,6 @@ p{
 </style>
 </head>
 
-
 <body>
 
 <header>
@@ -237,8 +257,161 @@ p{
   <div class="card" id="app"></div>
 </div>
 
-
 <script>
+
+/* =========================
+   LIFF
+========================= */
+
+const LIFF_ID = "2011248919-qSr0JfnE";
+
+let liffReady = false;
+
+async function initializeLiff(){
+
+  try{
+
+    await liff.init({
+      liffId: LIFF_ID
+    });
+
+    liffReady = true;
+
+  }catch(error){
+
+    console.error(
+      "LIFF initialization failed",
+      error
+    );
+
+  }
+
+}
+
+initializeLiff();
+
+
+/* =========================
+   QRコード読み取り
+========================= */
+
+async function scanQR(){
+
+  try{
+
+    if(!liffReady){
+
+      await liff.init({
+        liffId: LIFF_ID
+      });
+
+      liffReady = true;
+    }
+
+    if(!liff.isInClient()){
+
+      alert(
+        "QRコードの読み取りはLINEアプリ内からご利用ください。"
+      );
+
+      return;
+    }
+
+    const result =
+      await liff.scanCodeV2();
+
+    if(
+      !result ||
+      !result.value
+    ){
+      return;
+    }
+
+    const scanned =
+      result.value.trim();
+
+    let url;
+
+    try{
+
+      url =
+        new URL(scanned);
+
+    }catch(e){
+
+      alert(
+        "このQRコードはクイズラリー用ではありません。"
+      );
+
+      return;
+    }
+
+
+    /*
+      南陽FCクイズラリーの
+      QRコードか確認
+    */
+
+    if(
+      url.hostname !== "nanyofc.github.io" ||
+      !url.pathname.startsWith("/soccer-quiz")
+    ){
+
+      alert(
+        "このQRコードはクイズラリー用ではありません。"
+      );
+
+      return;
+    }
+
+
+    const number =
+      parseInt(
+        url.searchParams.get("q"),
+        10
+      );
+
+
+    if(
+      !Number.isInteger(number) ||
+      number < 1 ||
+      number > 5
+    ){
+
+      alert(
+        "問題番号を確認できませんでした。"
+      );
+
+      return;
+    }
+
+
+    /*
+      読み取った問題を表示
+    */
+
+    window.location.href =
+      window.location.pathname +
+      "?q=" +
+      number;
+
+  }catch(error){
+
+    console.error(
+      "QR scan error",
+      error
+    );
+
+    /*
+      ユーザーがQR読み取りを
+      キャンセルした場合もあるので
+      ページはそのまま
+    */
+
+  }
+
+}
+
 
 /* =========================
    問題データ
@@ -272,7 +445,6 @@ explanation:
 味方が頭や胸、膝などで通常のプレーとしてGKへ返したボールは、原則として手で扱えます。`
 },
 
-
 {
 question:
 `ゴールキーパーが自陣ペナルティーエリア内で、手や腕でボールを8秒を超えてコントロールした場合、正しい判定は？`,
@@ -294,7 +466,6 @@ explanation:
 
 主審は最後の5秒を手でカウントダウンして、ゴールキーパーに残り時間を知らせます。`
 },
-
 
 {
 question:
@@ -319,7 +490,6 @@ explanation:
 
 キックされた瞬間にオフサイドポジションにいた選手が、その後ボールをプレーするなどして反則の条件を満たせば、オフサイドとなります。`
 },
-
 
 {
 question:
@@ -350,7 +520,6 @@ explanation:
 
 そのため、攻撃側Bがそのボールを受けてもオフサイドの反則にはなりません。`
 },
-
 
 {
 question:
@@ -387,31 +556,31 @@ explanation:
    スタンプ保存
 ========================= */
 
-/*
-ここを完全に新しい名前にしているので
-以前のテストスタンプは読み込みません。
-最初は必ず 0 / 5 です。
-*/
-
 const STORAGE_KEY =
 "nanyo_soccer_quiz_official_final_20260825_2131";
-
 
 let cleared = [];
 
 try{
 
   const saved =
-  JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    JSON.parse(
+      localStorage.getItem(STORAGE_KEY) || "[]"
+    );
 
   if(Array.isArray(saved)){
-    cleared = saved.filter(function(number){
-      return (
-        Number.isInteger(number) &&
-        number >= 1 &&
-        number <= 5
-      );
-    });
+
+    cleared =
+      saved.filter(function(number){
+
+        return (
+          Number.isInteger(number) &&
+          number >= 1 &&
+          number <= 5
+        );
+
+      });
+
   }
 
 }catch(e){
@@ -419,9 +588,6 @@ try{
   cleared = [];
 
 }
-
-
-/* 重複防止 */
 
 cleared = [...new Set(cleared)];
 
@@ -431,13 +597,18 @@ cleared = [...new Set(cleared)];
 ========================= */
 
 const app =
-document.getElementById("app");
+  document.getElementById("app");
 
 const params =
-new URLSearchParams(window.location.search);
+  new URLSearchParams(
+    window.location.search
+  );
 
 const questionNumber =
-parseInt(params.get("q") || "0",10);
+  parseInt(
+    params.get("q") || "0",
+    10
+  );
 
 
 function saveCleared(){
@@ -466,19 +637,19 @@ function logoHTML(){
 function stampHTML(){
 
   let html =
-  '<div class="balls">';
+    '<div class="balls">';
 
   for(let i=1;i<=5;i++){
 
     if(cleared.includes(i)){
 
       html +=
-      '<span class="ball done">⚽</span>';
+        '<span class="ball done">⚽</span>';
 
     }else{
 
       html +=
-      '<span class="ball">⚽</span>';
+        '<span class="ball">⚽</span>';
 
     }
 
@@ -494,7 +665,7 @@ function stampHTML(){
 function backHome(){
 
   window.location.href =
-  window.location.pathname;
+    window.location.pathname;
 
 }
 
@@ -506,7 +677,7 @@ function backHome(){
 function showTop(){
 
   const count =
-  cleared.length;
+    cleared.length;
 
   let completeMessage = "";
 
@@ -523,42 +694,50 @@ function showTop(){
 
   app.innerHTML =
 
-  logoHTML() +
+    logoHTML() +
 
-  `
-  <h1>クイズラリー</h1>
+    `
+    <h1>クイズラリー</h1>
 
-  <p>
-  各ポイントに設置されたQRコードを読み込むと、
-  その場所の問題が1問だけ表示されます。
-  </p>
+    <p>
+    会場に設置されたQRコードを読み取って、
+    サッカールールクイズに挑戦しよう！
+    </p>
 
-  <div class="stamp-title">
-  現在の取得スタンプ
-  </div>
+    <button
+      class="scan-button"
+      onclick="scanQR()"
+    >
+      📷 QRコードを読み取る
+    </button>
 
-  ${stampHTML()}
+    <div class="stamp-title">
+    現在の取得スタンプ
+    </div>
 
-  <div class="count">
-  ${count} / 5
-  </div>
+    ${stampHTML()}
 
-  ${
-    count < 5
-    ?
-    `<div class="remaining">
-    あと ${5-count} ポイント！
-    </div>`
-    :
-    ""
-  }
+    <div class="count">
+    ${count} / 5
+    </div>
 
-  ${completeMessage}
+    ${
+      count < 5
+      ?
+      `<div class="remaining">
+      あと ${5-count} ポイント！
+      </div>`
+      :
+      ""
+    }
 
-  <div class="note">
-  ※問題は各スポットのQRコードからアクセスしてください。
-  </div>
-  `;
+    ${completeMessage}
+
+    <div class="note">
+    ※「QRコードを読み取る」を押して、
+    各ポイントに設置されたQRコードを読み取ってください。
+    </div>
+    `;
 
 }
 
@@ -570,143 +749,143 @@ function showTop(){
 function showQuestion(number){
 
   const q =
-  questions[number-1];
+    questions[number-1];
 
   app.innerHTML =
 
-  logoHTML() +
+    logoHTML() +
 
-  `
-  <div class="point">
-  POINT ${number} / 5
-  </div>
+    `
+    <div class="point">
+    POINT ${number} / 5
+    </div>
 
-  ${stampHTML()}
+    ${stampHTML()}
 
-  <div class="question">
-  ${q.question}
-  </div>
+    <div class="question">
+    ${q.question}
+    </div>
 
-  <div id="choices"></div>
+    <div id="choices"></div>
 
-  <div id="message"></div>
+    <div id="message"></div>
 
-  <button
-    class="home-button"
-    onclick="backHome()"
-  >
-  ← トップページに戻る
-  </button>
-  `;
+    <button
+      class="home-button"
+      onclick="backHome()"
+    >
+    ← トップページに戻る
+    </button>
+    `;
 
 
   const choices =
-  document.getElementById("choices");
+    document.getElementById("choices");
 
 
   q.choices.forEach(function(text,index){
 
     const button =
-    document.createElement("button");
+      document.createElement("button");
 
     button.className =
-    "choice";
+      "choice";
 
     button.textContent =
-    text;
+      text;
 
 
     button.onclick =
-    function(){
+      function(){
 
-      const message =
-      document.getElementById("message");
-
-
-      /* 不正解 */
-
-      if(index !== q.correct){
-
-        message.innerHTML =
-        `
-        <p class="wrong">
-        不正解。もう一度挑戦してください。
-        </p>
-        `;
-
-        return;
-
-      }
+        const message =
+          document.getElementById("message");
 
 
-      /* 正解した時だけスタンプ */
+        /* 不正解 */
 
-      if(!cleared.includes(number)){
+        if(index !== q.correct){
 
-        cleared.push(number);
+          message.innerHTML =
+            `
+            <p class="wrong">
+            不正解。もう一度挑戦してください。
+            </p>
+            `;
 
-        cleared.sort(function(a,b){
-          return a-b;
+          return;
+
+        }
+
+
+        /* 正解した時だけスタンプ */
+
+        if(!cleared.includes(number)){
+
+          cleared.push(number);
+
+          cleared.sort(function(a,b){
+            return a-b;
+          });
+
+          saveCleared();
+
+        }
+
+
+        /* 選択肢を停止 */
+
+        const buttons =
+          choices.querySelectorAll("button");
+
+        buttons.forEach(function(btn){
+          btn.disabled = true;
         });
 
-        saveCleared();
 
-      }
+        let finish = "";
 
+        if(cleared.length === 5){
 
-      /* 選択肢を停止 */
+          finish =
+            `
+            <div class="complete">
+            🎉 全問クリア！
+            </div>
+            `;
 
-      const buttons =
-      choices.querySelectorAll("button");
-
-      buttons.forEach(function(btn){
-        btn.disabled = true;
-      });
-
-
-      let finish = "";
-
-      if(cleared.length === 5){
-
-        finish =
-        `
-        <div class="complete">
-        🎉 全問クリア！
-        </div>
-        `;
-
-      }
+        }
 
 
-      message.innerHTML =
-      `
-      <p class="correct">
-      正解！
-      サッカーボールスタンプ獲得 ⚽
-      </p>
+        message.innerHTML =
+          `
+          <p class="correct">
+          正解！
+          サッカーボールスタンプ獲得 ⚽
+          </p>
 
-      ${stampHTML()}
+          ${stampHTML()}
 
-      <div class="explanation">
-      <strong>${q.answer}</strong>
+          <div class="explanation">
+          <strong>${q.answer}</strong>
 
-      <br><br>
+          <br><br>
 
-      <strong>解説</strong>
+          <strong>解説</strong>
 
-      <br>
+          <br>
 
-      ${q.explanation}
-      </div>
+          ${q.explanation}
+          </div>
 
-      ${finish}
+          ${finish}
 
-      <p>
-      次のQRポイントを探してください。
-      </p>
-      `;
+          <p>
+          次のQRポイントを探してください。
+          </p>
+          `;
 
-    };
+      };
 
 
     choices.appendChild(button);
