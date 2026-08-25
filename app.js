@@ -512,24 +512,16 @@ function setupSecretReset(){
 
         if(ok){
 
-          if(ok){
+          localStorage.removeItem(
+            GACHA_KEY
+          );
 
-  localStorage.removeItem(
-    GACHA_KEY
-  );
+          alert(
+            "ガチャ履歴をリセットしました。"
+          );
 
-  localStorage.removeItem(
-    STORAGE_KEY
-  );
-
-  cleared = [];
-
-  alert(
-    "クイズ進捗とガチャ履歴をすべてリセットしました。"
-  );
-
-  showTop();
-          }
+          showTop();
+        }
       }
     }
   );
