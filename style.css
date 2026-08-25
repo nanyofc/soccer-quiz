@@ -1,0 +1,738 @@
+:root{
+  --red:#c60012;
+  --green:#16834a;
+  --bg:#f7f7f7;
+  --text:#222;
+  --gray:#777;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  -webkit-tap-highlight-color:transparent;
+}
+
+body{
+  margin:0;
+
+  font-family:
+    "Hiragino Maru Gothic ProN",
+    "Yu Gothic",
+    system-ui,
+    sans-serif;
+
+  color:var(--text);
+
+  background:
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(255,220,225,.65),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 90% 35%,
+      rgba(225,245,235,.75),
+      transparent 32%
+    ),
+    var(--bg);
+
+  min-height:100vh;
+}
+
+
+/* ヘッダー */
+
+header{
+  background:
+    linear-gradient(
+      135deg,
+      #b50010,
+      #df0018
+    );
+
+  color:#fff;
+
+  text-align:center;
+
+  padding:20px 12px;
+
+  font-size:21px;
+  font-weight:900;
+
+  box-shadow:
+    0 4px 15px
+    rgba(198,0,18,.20);
+}
+
+
+/* メイン */
+
+.wrap{
+  width:100%;
+  max-width:650px;
+
+  margin:0 auto;
+
+  padding:20px;
+}
+
+.card{
+  background:
+    rgba(255,255,255,.97);
+
+  border-radius:28px;
+
+  padding:26px;
+
+  box-shadow:
+    0 12px 35px
+    rgba(0,0,0,.09);
+
+  animation:
+    cardIn .45s ease;
+}
+
+@keyframes cardIn{
+
+  from{
+    opacity:0;
+    transform:
+      translateY(14px);
+  }
+
+  to{
+    opacity:1;
+    transform:none;
+  }
+
+}
+
+
+/* ロゴ */
+
+.logo{
+  display:block;
+
+  width:76%;
+  max-width:300px;
+
+  height:auto;
+
+  margin:
+    0 auto 24px;
+
+  object-fit:contain;
+}
+
+
+/* 文字 */
+
+h1{
+  margin:
+    0 0 18px;
+
+  font-size:30px;
+  font-weight:900;
+}
+
+p{
+  line-height:1.8;
+}
+
+.loading{
+  text-align:center;
+
+  padding:30px;
+
+  font-weight:800;
+
+  color:#777;
+}
+
+
+/* QR */
+
+.scan-button{
+  width:100%;
+
+  margin-top:22px;
+
+  padding:18px;
+
+  border:0;
+
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #16834a,
+      #25aa65
+    );
+
+  color:#fff;
+
+  font-family:inherit;
+
+  font-size:18px;
+  font-weight:900;
+
+  box-shadow:
+    0 7px 20px
+    rgba(22,131,74,.25);
+}
+
+.scan-button:active{
+  transform:scale(.98);
+}
+
+
+/* スタンプ */
+
+.stamp-title{
+  margin-top:30px;
+
+  text-align:center;
+
+  font-size:19px;
+  font-weight:900;
+}
+
+.balls{
+  display:flex;
+
+  justify-content:center;
+  align-items:center;
+
+  gap:7px;
+
+  margin:
+    17px 0 10px;
+}
+
+.ball{
+  font-size:39px;
+
+  line-height:1;
+
+  filter:
+    grayscale(100%);
+
+  opacity:.14;
+}
+
+.ball.done{
+  filter:none;
+
+  opacity:1;
+
+  animation:
+    stampPop .45s ease;
+}
+
+@keyframes stampPop{
+
+  0%{
+    transform:
+      scale(1.8)
+      rotate(-20deg);
+
+    opacity:0;
+  }
+
+  70%{
+    transform:
+      scale(.9)
+      rotate(5deg);
+  }
+
+  100%{
+    transform:
+      scale(1);
+  }
+
+}
+
+.count{
+  margin-top:10px;
+
+  text-align:center;
+
+  font-size:30px;
+  font-weight:900;
+}
+
+.remaining{
+  margin-top:18px;
+
+  text-align:center;
+
+  font-size:18px;
+  font-weight:700;
+}
+
+.complete{
+  margin:
+    25px 0 15px;
+
+  text-align:center;
+
+  color:var(--green);
+
+  font-size:24px;
+  font-weight:900;
+
+  animation:
+    pop .5s ease;
+}
+
+
+/* 問題 */
+
+.point{
+  display:inline-block;
+
+  margin-bottom:10px;
+
+  padding:
+    7px 13px;
+
+  border-radius:30px;
+
+  background:#f1f1f1;
+
+  color:#555;
+
+  font-weight:900;
+}
+
+.question{
+  white-space:
+    pre-line;
+
+  margin:
+    22px 0;
+
+  font-size:19px;
+
+  font-weight:800;
+
+  line-height:1.75;
+}
+
+.choice{
+  display:block;
+
+  width:100%;
+
+  margin:
+    11px 0;
+
+  padding:17px;
+
+  border:
+    2px solid #d8dfdc;
+
+  border-radius:18px;
+
+  background:#fff;
+
+  text-align:left;
+
+  font-family:inherit;
+
+  font-size:16px;
+  font-weight:700;
+
+  line-height:1.5;
+}
+
+.choice:active{
+  transform:scale(.98);
+}
+
+.choice:disabled{
+  opacity:.6;
+}
+
+
+/* 正誤 */
+
+.correct{
+  color:var(--green);
+
+  font-size:19px;
+
+  font-weight:900;
+
+  line-height:1.6;
+
+  animation:
+    pop .4s ease;
+}
+
+.wrong{
+  color:#c43d3d;
+
+  font-weight:900;
+
+  animation:
+    shake .3s ease;
+}
+
+@keyframes shake{
+
+  0%,
+  100%{
+    transform:
+      translateX(0);
+  }
+
+  25%{
+    transform:
+      translateX(-6px);
+  }
+
+  75%{
+    transform:
+      translateX(6px);
+  }
+
+}
+
+@keyframes pop{
+
+  0%{
+    transform:
+      scale(.85);
+
+    opacity:0;
+  }
+
+  70%{
+    transform:
+      scale(1.08);
+  }
+
+  100%{
+    transform:
+      scale(1);
+
+    opacity:1;
+  }
+
+}
+
+
+/* 解説 */
+
+.explanation{
+  margin-top:15px;
+
+  padding:18px;
+
+  border-left:
+    5px solid var(--green);
+
+  border-radius:12px;
+
+  background:#f2f7f3;
+
+  white-space:
+    pre-line;
+
+  line-height:1.8;
+}
+
+
+/* 戻る */
+
+.home-button{
+  width:100%;
+
+  margin-top:22px;
+
+  padding:16px;
+
+  border:0;
+
+  border-radius:18px;
+
+  background:#222;
+
+  color:#fff;
+
+  font-family:inherit;
+
+  font-size:16px;
+  font-weight:900;
+}
+
+
+/* ガチャ */
+
+.gacha-area{
+  position:relative;
+
+  overflow:hidden;
+
+  margin-top:30px;
+
+  padding:
+    24px 18px;
+
+  border:
+    2px solid #f2d46d;
+
+  border-radius:24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fff7d6,
+      #fff,
+      #fff2bd
+    );
+
+  text-align:center;
+}
+
+.gacha-title{
+  font-size:27px;
+
+  font-weight:900;
+}
+
+.gacha-sub{
+  margin-top:8px;
+
+  color:#666;
+
+  font-size:15px;
+
+  line-height:1.7;
+}
+
+.gacha-machine{
+  margin:
+    20px 0;
+
+  font-size:90px;
+
+  line-height:1;
+}
+
+.gacha-machine.spinning{
+  animation:
+    gachaShake .12s
+    linear infinite;
+}
+
+@keyframes gachaShake{
+
+  0%{
+    transform:
+      translate(-3px,-1px)
+      rotate(-3deg);
+  }
+
+  25%{
+    transform:
+      translate(3px,2px)
+      rotate(3deg);
+  }
+
+  50%{
+    transform:
+      translate(-2px,3px)
+      rotate(-2deg);
+  }
+
+  75%{
+    transform:
+      translate(3px,-2px)
+      rotate(2deg);
+  }
+
+  100%{
+    transform:none;
+  }
+
+}
+
+.gacha-button{
+  width:100%;
+
+  padding:19px;
+
+  border:0;
+
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f0a500,
+      #ffca28
+    );
+
+  color:#3b2a00;
+
+  font-family:inherit;
+
+  font-size:20px;
+  font-weight:900;
+
+  box-shadow:
+    0 8px 20px
+    rgba(230,172,0,.28);
+}
+
+.gacha-button:disabled{
+  opacity:.55;
+}
+
+.gacha-result{
+  margin-top:22px;
+
+  min-height:20px;
+}
+
+.prize{
+  padding:
+    24px 15px;
+
+  border-radius:20px;
+
+  background:#fff;
+
+  box-shadow:
+    0 7px 25px
+    rgba(0,0,0,.12);
+
+  animation:
+    prizeIn .65s ease;
+}
+
+@keyframes prizeIn{
+
+  0%{
+    transform:
+      scale(.3)
+      rotate(-15deg);
+
+    opacity:0;
+  }
+
+  60%{
+    transform:
+      scale(1.15)
+      rotate(3deg);
+  }
+
+  100%{
+    transform:
+      scale(1);
+
+    opacity:1;
+  }
+
+}
+
+.prize-rank{
+  color:#9a7300;
+
+  font-size:18px;
+
+  font-weight:900;
+}
+
+.prize-name{
+  margin-top:8px;
+
+  font-size:29px;
+
+  font-weight:900;
+}
+
+.used-message{
+  margin-top:15px;
+
+  color:#777;
+
+  font-weight:900;
+}
+
+
+/* 注記 */
+
+.note{
+  margin-top:28px;
+
+  color:#777;
+
+  font-size:14px;
+
+  line-height:1.8;
+}
+
+
+/* 紙吹雪 */
+
+.confetti{
+  position:fixed;
+
+  top:-30px;
+
+  z-index:9999;
+
+  pointer-events:none;
+
+  animation:
+    fall linear forwards;
+}
+
+@keyframes fall{
+
+  to{
+    transform:
+      translateY(110vh)
+      rotate(720deg);
+
+    opacity:.7;
+  }
+
+}
+
+
+/* スマホ */
+
+@media(max-width:430px){
+
+  .wrap{
+    padding:18px;
+  }
+
+  .card{
+    padding:23px;
+  }
+
+  .logo{
+    width:80%;
+  }
+
+  .ball{
+    font-size:35px;
+  }
+
+  h1{
+    font-size:28px;
+  }
+
+  .gacha-machine{
+    font-size:78px;
+  }
+
+}
