@@ -6,230 +6,1161 @@
 
 <title>南陽FC サッカールール クイズラリー</title>
 
-<!-- LIFF SDK -->
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800;900&family=Zen+Maru+Gothic:wght@500;700;900&display=swap"
+rel="stylesheet">
+
 <style>
+
 :root{
   --red:#c60012;
+  --red2:#ee3443;
   --green:#16834a;
-  --bg:#f5f6f6;
+  --green2:#28aa66;
+  --yellow:#ffd84d;
+  --bg:#fff7f7;
   --card:#ffffff;
-  --text:#222;
+  --text:#292323;
   --gray:#777;
+  --gold:#d8a31a;
 }
 
 *{
   box-sizing:border-box;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   margin:0;
+
   font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Noto Sans JP",
-    "Yu Gothic",
+    "M PLUS Rounded 1c",
+    "Zen Maru Gothic",
     sans-serif;
-  background:var(--bg);
+
+  background:
+    radial-gradient(
+      circle at 20% 10%,
+      #ffe8ea,
+      transparent 35%
+    ),
+    linear-gradient(
+      180deg,
+      #fffafa,
+      #f5f6f6
+    );
+
   color:var(--text);
+
+  animation:
+    pageFade .6s ease;
 }
+
+@keyframes pageFade{
+
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+
+  to{
+    opacity:1;
+    transform:none;
+  }
+
+}
+
 
 header{
-  background:var(--red);
+
+  background:
+    linear-gradient(
+      135deg,
+      #9e0010,
+      var(--red),
+      #ec3341
+    );
+
   color:#fff;
+
   text-align:center;
-  padding:20px 12px;
-  font-size:21px;
+
+  padding:
+    18px 12px;
+
+  font-size:20px;
+
   font-weight:900;
+
+  letter-spacing:.03em;
+
+  box-shadow:
+    0 5px 16px rgba(198,0,18,.23);
+
 }
+
 
 .wrap{
+
   width:100%;
+
   max-width:650px;
+
   margin:0 auto;
-  padding:22px;
+
+  padding:20px;
+
 }
+
 
 .card{
-  background:var(--card);
-  border-radius:24px;
+
+  position:relative;
+
+  overflow:hidden;
+
+  background:
+    rgba(255,255,255,.97);
+
+  border-radius:28px;
+
   padding:28px;
-  box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.09);
+
+  animation:
+    cardIn .55s cubic-bezier(.2,.8,.2,1);
+
 }
+
+
+@keyframes cardIn{
+
+  from{
+    transform:
+      translateY(20px)
+      scale(.97);
+
+    opacity:0;
+  }
+
+  to{
+    transform:none;
+    opacity:1;
+  }
+
+}
+
 
 .logo{
+
   display:block;
+
   width:78%;
+
   max-width:320px;
+
   height:auto;
-  margin:0 auto 25px;
+
+  margin:
+    0 auto
+    24px;
+
   object-fit:contain;
+
+  transition:
+    transform .18s ease;
+
+  user-select:none;
+
+  -webkit-user-select:none;
+
 }
+
+
+.logo:active{
+
+  transform:
+    scale(.94)
+    rotate(-1deg);
+
+}
+
 
 h1{
-  margin:0 0 20px;
+
+  margin:
+    0 0 18px;
+
   font-size:30px;
+
+  font-weight:900;
+
+  letter-spacing:.02em;
+
 }
+
 
 p{
-  line-height:1.75;
+
+  line-height:1.8;
+
 }
+
 
 .question{
+
   white-space:pre-line;
+
   font-size:19px;
+
   font-weight:800;
-  line-height:1.7;
-  margin:22px 0;
+
+  line-height:1.75;
+
+  margin:
+    22px 0;
+
 }
+
 
 .point{
-  color:#777;
-  font-weight:700;
-  margin-bottom:8px;
+
+  display:inline-block;
+
+  color:#fff;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--red),
+      var(--red2)
+    );
+
+  font-weight:900;
+
+  margin-bottom:10px;
+
+  padding:
+    6px 13px;
+
+  border-radius:999px;
+
 }
+
 
 .choice{
+
   width:100%;
+
   display:block;
+
   background:#fff;
-  border:2px solid #d8dfdc;
-  border-radius:15px;
+
+  border:
+    2px solid #eadfe0;
+
+  border-radius:17px;
+
   padding:17px;
-  margin:10px 0;
+
+  margin:11px 0;
+
   text-align:left;
+
+  font-family:inherit;
+
   font-size:16px;
-  font-weight:700;
-  line-height:1.5;
+
+  font-weight:800;
+
+  line-height:1.55;
+
+  box-shadow:
+    0 3px 10px rgba(0,0,0,.03);
+
+  transition:
+    transform .15s,
+    border-color .15s,
+    box-shadow .15s;
+
 }
+
 
 .choice:active{
-  transform:scale(.99);
+
+  transform:
+    scale(.975);
+
+  border-color:
+    var(--red);
+
 }
+
 
 .choice:disabled{
-  opacity:.6;
+
+  opacity:.58;
+
 }
+
 
 .correct{
+
   color:var(--green);
-  font-size:18px;
+
+  font-size:19px;
+
   font-weight:900;
-  line-height:1.6;
+
+  line-height:1.65;
+
+  animation:
+    correctPop .5s ease;
+
 }
+
+
+@keyframes correctPop{
+
+  0%{
+    transform:
+      scale(.7);
+
+    opacity:0;
+  }
+
+  65%{
+    transform:
+      scale(1.08);
+  }
+
+  100%{
+    transform:
+      scale(1);
+    opacity:1;
+  }
+
+}
+
 
 .wrong{
+
   color:#c43d3d;
+
   font-weight:900;
+
+  animation:
+    shake .4s ease;
+
 }
+
+
+@keyframes shake{
+
+  0%,100%{
+    transform:
+      translateX(0);
+  }
+
+  25%{
+    transform:
+      translateX(-7px);
+  }
+
+  50%{
+    transform:
+      translateX(7px);
+  }
+
+  75%{
+    transform:
+      translateX(-4px);
+  }
+
+}
+
 
 .explanation{
-  background:#f2f7f3;
-  border-left:5px solid var(--green);
+
+  background:
+    linear-gradient(
+      135deg,
+      #f0faf4,
+      #fff
+    );
+
+  border-left:
+    6px solid var(--green);
+
   padding:18px;
-  border-radius:10px;
+
+  border-radius:14px;
+
   white-space:pre-line;
-  line-height:1.8;
+
+  line-height:1.85;
+
   margin-top:15px;
+
+  box-shadow:
+    0 5px 14px rgba(22,131,74,.08);
+
 }
+
+
+.home-button,
+.scan-button,
+.gacha-button{
+
+  width:100%;
+
+  font-family:inherit;
+
+  border:none;
+
+  cursor:pointer;
+
+}
+
 
 .home-button{
-  width:100%;
+
   margin-top:22px;
+
   padding:16px;
-  background:#222;
+
+  background:#262222;
+
   color:#fff;
-  border:none;
-  border-radius:14px;
+
+  border-radius:15px;
+
   font-size:16px;
-  font-weight:800;
+
+  font-weight:900;
+
 }
 
-/* QR読み取りボタン */
+
 .scan-button{
-  width:100%;
-  margin-top:25px;
+
+  margin-top:24px;
+
   padding:18px;
-  background:var(--green);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--green),
+      var(--green2)
+    );
+
   color:#fff;
-  border:none;
-  border-radius:16px;
+
+  border-radius:18px;
+
   font-size:18px;
+
   font-weight:900;
-  box-shadow:0 5px 15px rgba(0,0,0,.12);
+
+  box-shadow:
+    0 7px 18px rgba(22,131,74,.22);
+
+  animation:
+    scanPulse 2.2s infinite;
+
 }
+
+
+@keyframes scanPulse{
+
+  0%,100%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.025);
+  }
+
+}
+
 
 .scan-button:active{
-  transform:scale(.98);
+
+  transform:
+    scale(.97);
+
 }
+
 
 .center{
+
   text-align:center;
+
 }
+
 
 .stamp-title{
-  margin-top:28px;
+
+  margin-top:29px;
+
   text-align:center;
+
   font-weight:900;
+
   font-size:18px;
+
 }
+
 
 .balls{
+
   display:flex;
+
   justify-content:center;
+
   align-items:center;
-  gap:8px;
-  margin:16px 0 10px;
+
+  gap:9px;
+
+  margin:
+    16px 0 10px;
+
 }
+
 
 .ball{
+
+  display:inline-block;
+
   font-size:39px;
+
   line-height:1;
-  filter:grayscale(100%);
-  opacity:.16;
+
+  filter:
+    grayscale(100%);
+
+  opacity:.13;
+
 }
+
 
 .ball.done{
+
   filter:none;
+
   opacity:1;
+
+  animation:
+    ballGet .65s cubic-bezier(.3,1.8,.4,1);
+
 }
+
+
+@keyframes ballGet{
+
+  0%{
+    transform:
+      translateY(-24px)
+      scale(.1)
+      rotate(-180deg);
+
+    opacity:0;
+  }
+
+  70%{
+    transform:
+      translateY(3px)
+      scale(1.22)
+      rotate(15deg);
+  }
+
+  100%{
+    transform:
+      scale(1)
+      rotate(0);
+  }
+
+}
+
 
 .count{
+
   text-align:center;
-  font-size:28px;
+
+  font-size:29px;
+
   font-weight:900;
+
   margin-top:8px;
+
 }
+
 
 .remaining{
+
   text-align:center;
+
   font-size:18px;
-  margin-top:18px;
+
+  margin-top:16px;
+
+  font-weight:700;
+
 }
+
 
 .note{
+
   color:#777;
-  font-size:14px;
-  margin-top:28px;
+
+  font-size:13px;
+
+  margin-top:26px;
+
   line-height:1.7;
+
 }
+
 
 .complete{
+
   text-align:center;
+
   color:var(--green);
-  font-size:22px;
+
+  font-size:25px;
+
   font-weight:900;
-  margin-top:20px;
+
+  margin-top:22px;
+
+  animation:
+    completePop .65s ease;
+
 }
 
+
+@keyframes completePop{
+
+  from{
+    transform:
+      scale(.35)
+      rotate(-5deg);
+
+    opacity:0;
+  }
+
+  70%{
+    transform:
+      scale(1.12);
+  }
+
+  to{
+    transform:
+      scale(1);
+    opacity:1;
+  }
+
+}
+
+
+/* =========================
+   ガチャ
+========================= */
+
+
+.gacha-area{
+
+  position:relative;
+
+  overflow:hidden;
+
+  margin-top:28px;
+
+  padding:
+    24px 18px;
+
+  border-radius:24px;
+
+  background:
+    linear-gradient(
+      160deg,
+      #fff8d8,
+      #fff,
+      #fff0d6
+    );
+
+  border:
+    3px solid #f0cf68;
+
+  text-align:center;
+
+  box-shadow:
+    0 9px 26px rgba(216,163,26,.17);
+
+}
+
+
+.gacha-area:before{
+
+  content:"";
+
+  position:absolute;
+
+  top:-100%;
+
+  left:-40%;
+
+  width:45%;
+
+  height:300%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.85),
+      transparent
+    );
+
+  transform:
+    rotate(25deg);
+
+  animation:
+    shine 3.2s infinite;
+
+}
+
+
+@keyframes shine{
+
+  0%{
+    left:-70%;
+  }
+
+  50%,
+  100%{
+    left:150%;
+  }
+
+}
+
+
+.gacha-title{
+
+  position:relative;
+
+  font-size:25px;
+
+  font-weight:900;
+
+  margin-bottom:8px;
+
+}
+
+
+.gacha-sub{
+
+  position:relative;
+
+  font-size:14px;
+
+  color:#777;
+
+}
+
+
+.gacha-machine{
+
+  width:190px;
+
+  height:230px;
+
+  margin:
+    22px auto;
+
+  position:relative;
+
+}
+
+
+.gacha-top{
+
+  width:160px;
+
+  height:160px;
+
+  margin:0 auto;
+
+  border-radius:50%;
+
+  border:
+    8px solid #272222;
+
+  background:
+
+    radial-gradient(
+      circle at 22% 25%,
+      #ff5b69 0 13%,
+      transparent 14%
+    ),
+
+    radial-gradient(
+      circle at 68% 28%,
+      #ffd84d 0 15%,
+      transparent 16%
+    ),
+
+    radial-gradient(
+      circle at 35% 70%,
+      #42bd72 0 16%,
+      transparent 17%
+    ),
+
+    radial-gradient(
+      circle at 73% 68%,
+      #5b91ff 0 15%,
+      transparent 16%
+    ),
+
+    #fafafa;
+
+  overflow:hidden;
+
+}
+
+
+.gacha-base{
+
+  width:130px;
+
+  height:78px;
+
+  margin:
+    -8px auto 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      #333,
+      #171717
+    );
+
+  border-radius:
+    14px 14px 23px 23px;
+
+  position:relative;
+
+}
+
+
+.handle{
+
+  width:56px;
+
+  height:18px;
+
+  background:#eee;
+
+  border:
+    5px solid #222;
+
+  border-radius:12px;
+
+  position:absolute;
+
+  left:37px;
+
+  top:17px;
+
+}
+
+
+.exit{
+
+  width:42px;
+
+  height:23px;
+
+  background:#080808;
+
+  border-radius:
+    0 0 14px 14px;
+
+  position:absolute;
+
+  left:44px;
+
+  bottom:8px;
+
+}
+
+
+.gacha-machine.spinning{
+
+  animation:
+    machineShake .13s linear infinite;
+
+}
+
+
+.gacha-machine.spinning .gacha-top{
+
+  animation:
+    ballSpin .38s linear infinite;
+
+}
+
+
+.gacha-machine.spinning .handle{
+
+  animation:
+    handleTurn .48s linear infinite;
+
+}
+
+
+@keyframes machineShake{
+
+  0%{
+    transform:
+      translateX(-4px)
+      rotate(-1deg);
+  }
+
+  50%{
+    transform:
+      translateX(4px)
+      rotate(1deg);
+  }
+
+  100%{
+    transform:
+      translateX(-4px)
+      rotate(-1deg);
+  }
+
+}
+
+
+@keyframes ballSpin{
+
+  from{
+    transform:
+      rotate(0);
+  }
+
+  to{
+    transform:
+      rotate(360deg);
+  }
+
+}
+
+
+@keyframes handleTurn{
+
+  from{
+    transform:
+      rotate(0);
+  }
+
+  to{
+    transform:
+      rotate(360deg);
+  }
+
+}
+
+
+.gacha-button{
+
+  position:relative;
+
+  padding:18px;
+
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffe069,
+      #ffbb16,
+      #f18c00
+    );
+
+  color:#2b2100;
+
+  font-size:20px;
+
+  font-weight:900;
+
+  box-shadow:
+    0 7px 17px rgba(214,155,0,.28);
+
+}
+
+
+.gacha-button:active{
+
+  transform:
+    scale(.97);
+
+}
+
+
+.gacha-button:disabled{
+
+  opacity:.6;
+
+}
+
+
+.gacha-result{
+
+  display:none;
+
+  position:relative;
+
+  margin-top:24px;
+
+  padding:
+    25px 15px;
+
+  border-radius:20px;
+
+  background:#fff;
+
+  border:
+    3px solid var(--gold);
+
+}
+
+
+.gacha-result.show{
+
+  display:block;
+
+  animation:
+    resultPop .6s cubic-bezier(.2,1.7,.3,1);
+
+}
+
+
+@keyframes resultPop{
+
+  0%{
+    transform:
+      scale(.25)
+      rotate(-7deg);
+
+    opacity:0;
+  }
+
+  70%{
+    transform:
+      scale(1.15);
+  }
+
+  100%{
+    transform:
+      scale(1);
+    opacity:1;
+  }
+
+}
+
+
+.result-rank{
+
+  font-size:35px;
+
+  font-weight:900;
+
+  margin-bottom:10px;
+
+}
+
+
+.result-prize{
+
+  font-size:21px;
+
+  font-weight:900;
+
+}
+
+
+.already{
+
+  font-size:14px;
+
+  color:#777;
+
+  margin-top:14px;
+
+}
+
+
+/* =========================
+   紙吹雪
+========================= */
+
+
+.confetti{
+
+  position:fixed;
+
+  z-index:9999;
+
+  width:10px;
+
+  height:16px;
+
+  top:-25px;
+
+  pointer-events:none;
+
+  animation:
+    confettiFall linear forwards;
+
+}
+
+
+@keyframes confettiFall{
+
+  to{
+
+    transform:
+      translateY(110vh)
+      rotate(900deg);
+
+    opacity:.5;
+
+  }
+
+}
+
+
 @media(max-width:430px){
+
   .wrap{
-    padding:18px;
+    padding:17px;
   }
 
   .card{
-    padding:24px;
+    padding:23px;
   }
 
   .logo{
@@ -237,15 +1168,18 @@ p{
   }
 
   .ball{
-    font-size:36px;
+    font-size:35px;
   }
 
   h1{
     font-size:28px;
   }
+
 }
+
 </style>
 </head>
+
 
 <body>
 
@@ -254,33 +1188,48 @@ p{
 </header>
 
 <div class="wrap">
-  <div class="card" id="app"></div>
+
+<div
+class="card"
+id="app">
 </div>
 
+</div>
+
+
 <script>
+
 
 /* =========================
    LIFF
 ========================= */
 
-const LIFF_ID = "2011248919-qSr0JfnE";
 
-let liffReady = false;
+const LIFF_ID =
+"2011248919-qSr0JfnE";
+
+
+let liffReady =
+false;
+
 
 async function initializeLiff(){
 
   try{
 
     await liff.init({
-      liffId: LIFF_ID
+
+      liffId:
+      LIFF_ID
+
     });
 
-    liffReady = true;
+    liffReady =
+    true;
 
   }catch(error){
 
     console.error(
-      "LIFF initialization failed",
       error
     );
 
@@ -288,54 +1237,77 @@ async function initializeLiff(){
 
 }
 
+
 initializeLiff();
+
 
 
 /* =========================
    QRコード読み取り
 ========================= */
 
+
 async function scanQR(){
 
   try{
 
-    if(!liffReady){
+    if(
+      !liffReady
+    ){
 
       await liff.init({
-        liffId: LIFF_ID
+
+        liffId:
+        LIFF_ID
+
       });
 
-      liffReady = true;
+      liffReady =
+      true;
+
     }
 
-    if(!liff.isInClient()){
+
+    if(
+      !liff.isInClient()
+    ){
 
       alert(
         "QRコードの読み取りはLINEアプリ内からご利用ください。"
       );
 
       return;
+
     }
+
 
     const result =
       await liff.scanCodeV2();
+
 
     if(
       !result ||
       !result.value
     ){
+
       return;
+
     }
+
 
     const scanned =
       result.value.trim();
 
+
     let url;
+
 
     try{
 
       url =
-        new URL(scanned);
+        new URL(
+          scanned
+        );
 
     }catch(e){
 
@@ -344,17 +1316,21 @@ async function scanQR(){
       );
 
       return;
+
     }
 
 
-    /*
-      南陽FCクイズラリーの
-      QRコードか確認
-    */
-
     if(
-      url.hostname !== "nanyofc.github.io" ||
-      !url.pathname.startsWith("/soccer-quiz")
+
+      url.hostname !==
+      "nanyofc.github.io"
+
+      ||
+
+      !url.pathname.startsWith(
+        "/soccer-quiz"
+      )
+
     ){
 
       alert(
@@ -362,20 +1338,36 @@ async function scanQR(){
       );
 
       return;
+
     }
 
 
     const number =
       parseInt(
-        url.searchParams.get("q"),
+
+        url.searchParams.get(
+          "q"
+        ),
+
         10
+
       );
 
 
     if(
-      !Number.isInteger(number) ||
-      number < 1 ||
+
+      !Number.isInteger(
+        number
+      )
+
+      ||
+
+      number < 1
+
+      ||
+
       number > 5
+
     ){
 
       alert(
@@ -383,116 +1375,164 @@ async function scanQR(){
       );
 
       return;
+
     }
 
 
-    /*
-      読み取った問題を表示
-    */
-
     window.location.href =
-      window.location.pathname +
-      "?q=" +
+
+      window.location.pathname
+
+      +
+
+      "?q="
+
+      +
+
       number;
+
 
   }catch(error){
 
     console.error(
-      "QR scan error",
       error
     );
-
-    /*
-      ユーザーがQR読み取りを
-      キャンセルした場合もあるので
-      ページはそのまま
-    */
 
   }
 
 }
 
 
+
 /* =========================
    問題データ
 ========================= */
 
+
 const questions = [
 
+
 {
+
 question:
+
 `守備側Aが、意図的に足で味方のゴールキーパーへボールを蹴った。
 ゴールキーパーは自陣ペナルティーエリア内で、そのボールを手でキャッチした。
 正しい判定は？`,
 
+
 choices:[
+
 "A. そのままプレーを続ける",
+
 "B. 相手チームのペナルティーキック",
+
 "C. 相手チームの間接フリーキック",
+
 "D. 相手チームのコーナーキック"
+
 ],
+
 
 correct:2,
 
+
 answer:
+
 "正解：C　相手チームの間接フリーキック",
 
+
 explanation:
+
 `味方競技者が意図的に足でゴールキーパーへ蹴ったボールを、ゴールキーパーが自陣ペナルティーエリア内で手や腕で扱うと反則になります。
 
 相手チームに間接フリーキックが与えられます。
 
 味方が頭や胸、膝などで通常のプレーとしてGKへ返したボールは、原則として手で扱えます。`
+
 },
 
+
 {
+
 question:
+
 `ゴールキーパーが自陣ペナルティーエリア内で、手や腕でボールを8秒を超えてコントロールした場合、正しい判定は？`,
 
+
 choices:[
+
 "A. 相手チームの間接フリーキック",
+
 "B. 相手チームのコーナーキック",
+
 "C. 相手チームのペナルティキック",
+
 "D. ドロップボール"
+
 ],
+
 
 correct:1,
 
+
 answer:
+
 "正解：B　相手チームのコーナーキック",
 
+
 explanation:
+
 `ゴールキーパーが手や腕でボールを8秒を超えてコントロールした場合、相手チームにコーナーキックが与えられます。
 
 主審は最後の5秒を手でカウントダウンして、ゴールキーパーに残り時間を知らせます。`
+
 },
 
+
 {
+
 question:
+
 `次のうち、オフサイドポジションにいる攻撃側競技者が味方から直接ボールを受けた場合、オフサイドの反則になる可能性があるものはどれ？`,
 
+
 choices:[
+
 "A. ゴールキック",
+
 "B. コーナーキック",
+
 "C. スローイン",
+
 "D. 間接フリーキック"
+
 ],
+
 
 correct:3,
 
+
 answer:
+
 "正解：D　間接フリーキック",
 
+
 explanation:
+
 `ゴールキック・コーナーキック・スローインから直接ボールを受けた場合は、オフサイドになりません。
 
 一方、間接フリーキックにはオフサイドの適用があります。
 
 キックされた瞬間にオフサイドポジションにいた選手が、その後ボールをプレーするなどして反則の条件を満たせば、オフサイドとなります。`
+
 },
 
+
 {
+
 question:
+
 `攻撃側Aが前方へパスを出した瞬間、攻撃側Bはオフサイドポジションにいた。
 
 守備側Cは、そのパスが自分の方向へ来るのを確認し、時間と距離に余裕がある状態で、自らボールを蹴ってクリアしようとした。
@@ -503,26 +1543,41 @@ question:
 
 正しい判定は？`,
 
+
 choices:[
+
 "A. オフサイド判定、守備側の間接フリーキック",
+
 "B. ゴールを認める",
+
 "C. ドロップボールで再開",
+
 "D. オフサイド判定、守備側の直接フリーキック"
+
 ],
+
 
 correct:1,
 
+
 answer:
+
 "正解：B　ゴールを認める",
 
+
 explanation:
+
 `守備側Cにはボールをプレーする時間・視野・身体のコントロールがあり、意図的にボールをプレーしているため、結果的にミスキックになっても「意図的なプレー」と判断できます。
 
 そのため、攻撃側Bがそのボールを受けてもオフサイドの反則にはなりません。`
+
 },
 
+
 {
+
 question:
+
 `守備側Aが自陣ペナルティーエリア内で、相手のクロスボールをクリアしようと足を出した。
 
 ボールは守備側A自身の足に当たった直後、自然な位置にあった守備側Aの腕に触れた。
@@ -531,388 +1586,637 @@ question:
 
 正しい判定は？`,
 
+
 choices:[
+
 "A. ハンドの反則、攻撃側のペナルティーキック",
+
 "B. ハンドの反則、攻撃側の間接フリーキック",
+
 "C. 反則ではない。プレーを続ける",
+
 "D. ドロップボールで再開する"
+
 ],
+
 
 correct:2,
 
+
 answer:
+
 "正解：C　反則ではない。プレーを続ける",
 
+
 explanation:
+
 `ボールが手や腕に触れたという事実だけで、すべてハンドの反則になるわけではありません。
 
 このケースでは、腕が身体の動きとして自然な位置にあり、ボールに向かって意図的に腕を動かしたわけでも、腕によって身体を不自然に大きくしたわけでもないため、ハンドの反則とはならず、プレー続行となります。`
+
 }
+
 
 ];
 
 
+
 /* =========================
-   スタンプ保存
+   保存キー
 ========================= */
 
+
 const STORAGE_KEY =
+
 "nanyo_soccer_quiz_official_final_20260825_2131";
 
-let cleared = [];
+
+const GACHA_KEY =
+
+"nanyo_soccer_quiz_gacha_test_20260825";
+
+
+
+let cleared =
+[];
+
 
 try{
 
   const saved =
+
     JSON.parse(
-      localStorage.getItem(STORAGE_KEY) || "[]"
+
+      localStorage.getItem(
+        STORAGE_KEY
+      )
+
+      ||
+
+      "[]"
+
     );
 
-  if(Array.isArray(saved)){
+
+  if(
+    Array.isArray(
+      saved
+    )
+  ){
 
     cleared =
-      saved.filter(function(number){
 
-        return (
-          Number.isInteger(number) &&
-          number >= 1 &&
-          number <= 5
-        );
+      saved.filter(
 
-      });
+        function(number){
+
+          return (
+
+            Number.isInteger(
+              number
+            )
+
+            &&
+
+            number >= 1
+
+            &&
+
+            number <= 5
+
+          );
+
+        }
+
+      );
 
   }
 
 }catch(e){
 
-  cleared = [];
+  cleared =
+  [];
 
 }
 
-cleared = [...new Set(cleared)];
+
+cleared =
+[...new Set(cleared)];
+
+
+
+/* =========================
+   ガチャ1000口設定
+========================= */
+
+
+const GACHA_TOTAL =
+1000;
+
+
+const GACHA_PRIZES = [
+
+
+{
+
+rank:
+"🎊 1等",
+
+prize:
+"特賞",
+
+count:
+10
+
+},
+
+
+{
+
+rank:
+"🥈 2等",
+
+prize:
+"景品A",
+
+count:
+40
+
+},
+
+
+{
+
+rank:
+"🥉 3等",
+
+prize:
+"景品B",
+
+count:
+150
+
+},
+
+
+{
+
+rank:
+"⚽ 参加賞",
+
+prize:
+"参加賞",
+
+count:
+800
+
+}
+
+
+];
+
 
 
 /* =========================
    共通
 ========================= */
 
+
 const app =
-  document.getElementById("app");
+
+document.getElementById(
+  "app"
+);
+
 
 const params =
-  new URLSearchParams(
-    window.location.search
-  );
+
+new URLSearchParams(
+  window.location.search
+);
+
 
 const questionNumber =
-  parseInt(
-    params.get("q") || "0",
-    10
-  );
+
+parseInt(
+
+  params.get(
+    "q"
+  )
+
+  ||
+
+  "0",
+
+  10
+
+);
+
 
 
 function saveCleared(){
 
   localStorage.setItem(
+
     STORAGE_KEY,
-    JSON.stringify(cleared)
+
+    JSON.stringify(
+      cleared
+    )
+
   );
 
 }
 
 
+
+/* =========================
+   隠しリセット
+========================= */
+
+
+let secretTapCount =
+0;
+
+
+let secretTimer =
+null;
+
+
+function secretLogoTap(){
+
+  secretTapCount++;
+
+
+  clearTimeout(
+    secretTimer
+  );
+
+
+  secretTimer =
+
+    setTimeout(
+      function(){
+
+        secretTapCount =
+        0;
+
+      },
+
+      2500
+    );
+
+
+  if(
+    secretTapCount >= 7
+  ){
+
+    secretTapCount =
+    0;
+
+
+    const result =
+
+      confirm(
+
+        "【テスト用】\nガチャ履歴をリセットしますか？"
+
+      );
+
+
+    if(
+      result
+    ){
+
+      localStorage.removeItem(
+        GACHA_KEY
+      );
+
+
+      alert(
+        "ガチャ履歴をリセットしました。"
+      );
+
+
+      location.reload();
+
+    }
+
+  }
+
+}
+
+
+
+/* =========================
+   ロゴ
+========================= */
+
+
 function logoHTML(){
 
   return `
+
   <img
+
     src="./nanyo.png"
+
     class="logo"
+
     alt="南陽FC"
+
+    onclick="secretLogoTap()"
+
   >
+
   `;
 
 }
 
 
+
+/* =========================
+   スタンプ
+========================= */
+
+
 function stampHTML(){
 
   let html =
+
     '<div class="balls">';
 
-  for(let i=1;i<=5;i++){
 
-    if(cleared.includes(i)){
+  for(
+    let i=1;
+    i<=5;
+    i++
+  ){
+
+    if(
+      cleared.includes(i)
+    ){
 
       html +=
+
         '<span class="ball done">⚽</span>';
 
     }else{
 
       html +=
+
         '<span class="ball">⚽</span>';
 
     }
 
   }
 
-  html += '</div>';
+
+  html +=
+
+    '</div>';
+
 
   return html;
 
 }
 
 
+
 function backHome(){
 
   window.location.href =
+
     window.location.pathname;
 
 }
 
 
+
 /* =========================
-   トップページ
+   紙吹雪
 ========================= */
 
-function showTop(){
 
-  const count =
-    cleared.length;
+function confetti(
 
-  let completeMessage = "";
+  amount = 55
 
-  if(count === 5){
+){
 
-    completeMessage =
-    `
-    <div class="complete">
-    🎉 全問クリア！
+  const colors = [
+
+    "#c60012",
+
+    "#ffd84d",
+
+    "#16834a",
+
+    "#4b89ff",
+
+    "#ff75b5",
+
+    "#9c5cff"
+
+  ];
+
+
+  for(
+    let i=0;
+    i<amount;
+    i++
+  ){
+
+    const item =
+
+      document.createElement(
+        "div"
+      );
+
+
+    item.className =
+      "confetti";
+
+
+    item.style.left =
+
+      Math.random()
+      *100
+      +"vw";
+
+
+    item.style.background =
+
+      colors[
+        Math.floor(
+          Math.random()
+          *colors.length
+        )
+      ];
+
+
+    item.style.animationDuration =
+
+      (
+        2.3
+        +
+        Math.random()*2
+      )
+      +"s";
+
+
+    item.style.transform =
+
+      "rotate("
+
+      +
+
+      Math.random()*360
+
+      +
+
+      "deg)";
+
+
+    document.body.appendChild(
+      item
+    );
+
+
+    setTimeout(
+      function(){
+
+        item.remove();
+
+      },
+
+      5000
+    );
+
+  }
+
+}
+
+
+
+/* =========================
+   ガチャ
+========================= */
+
+
+function getGachaResult(){
+
+  try{
+
+    const saved =
+
+      localStorage.getItem(
+        GACHA_KEY
+      );
+
+
+    if(
+      !saved
+    ){
+
+      return null;
+
+    }
+
+
+    return JSON.parse(
+      saved
+    );
+
+
+  }catch(e){
+
+    return null;
+
+  }
+
+}
+
+
+
+function gachaHTML(){
+
+  const oldResult =
+
+    getGachaResult();
+
+
+  if(
+    oldResult
+  ){
+
+    return `
+
+    <div class="gacha-area">
+
+      <div class="gacha-title">
+
+      🎁 ガチャ結果
+
+      </div>
+
+
+      <div
+        class="gacha-result show"
+      >
+
+        <div class="result-rank">
+
+        ${oldResult.rank}
+
+        </div>
+
+
+        <div class="result-prize">
+
+        ${oldResult.prize}
+
+        </div>
+
+      </div>
+
+
+      <div class="already">
+
+      ※ガチャは1人1回です。
+
+      </div>
+
     </div>
+
     `;
 
   }
 
-  app.innerHTML =
 
-    logoHTML() +
+  return `
 
-    `
-    <h1>クイズラリー</h1>
+  <div class="gacha-area">
 
-    <p>
-    会場に設置されたQRコードを読み取って、
-    サッカールールクイズに挑戦しよう！
-    </p>
 
-    <button
-      class="scan-button"
-      onclick="scanQR()"
+    <div class="gacha-title">
+
+    🎉 全問クリア特典
+
+    </div>
+
+
+    <div class="gacha-sub">
+
+    ガチャに1回挑戦できます！
+
+    </div>
+
+
+    <div
+      class="gacha-machine"
+      id="gachaMachine"
     >
-      📷 QRコードを読み取る
-    </button>
 
-    <div class="stamp-title">
-    現在の取得スタンプ
-    </div>
 
-    ${stampHTML()}
-
-    <div class="count">
-    ${count} / 5
-    </div>
-
-    ${
-      count < 5
-      ?
-      `<div class="remaining">
-      あと ${5-count} ポイント！
-      </div>`
-      :
-      ""
-    }
-
-    ${completeMessage}
-
-    <div class="note">
-    ※「QRコードを読み取る」を押して、
-    各ポイントに設置されたQRコードを読み取ってください。
-    </div>
-    `;
-
-}
-
-
-/* =========================
-   問題ページ
-========================= */
-
-function showQuestion(number){
-
-  const q =
-    questions[number-1];
-
-  app.innerHTML =
-
-    logoHTML() +
-
-    `
-    <div class="point">
-    POINT ${number} / 5
-    </div>
-
-    ${stampHTML()}
-
-    <div class="question">
-    ${q.question}
-    </div>
-
-    <div id="choices"></div>
-
-    <div id="message"></div>
-
-    <button
-      class="home-button"
-      onclick="backHome()"
-    >
-    ← トップページに戻る
-    </button>
-    `;
-
-
-  const choices =
-    document.getElementById("choices");
-
-
-  q.choices.forEach(function(text,index){
-
-    const button =
-      document.createElement("button");
-
-    button.className =
-      "choice";
-
-    button.textContent =
-      text;
-
-
-    button.onclick =
-      function(){
-
-        const message =
-          document.getElementById("message");
-
-
-        /* 不正解 */
-
-        if(index !== q.correct){
-
-          message.innerHTML =
-            `
-            <p class="wrong">
-            不正解。もう一度挑戦してください。
-            </p>
-            `;
-
-          return;
-
-        }
-
-
-        /* 正解した時だけスタンプ */
-
-        if(!cleared.includes(number)){
-
-          cleared.push(number);
-
-          cleared.sort(function(a,b){
-            return a-b;
-          });
-
-          saveCleared();
-
-        }
-
-
-        /* 選択肢を停止 */
-
-        const buttons =
-          choices.querySelectorAll("button");
-
-        buttons.forEach(function(btn){
-          btn.disabled = true;
-        });
-
-
-        let finish = "";
-
-        if(cleared.length === 5){
-
-          finish =
-            `
-            <div class="complete">
-            🎉 全問クリア！
-            </div>
-            `;
-
-        }
-
-
-        message.innerHTML =
-          `
-          <p class="correct">
-          正解！
-          サッカーボールスタンプ獲得 ⚽
-          </p>
-
-          ${stampHTML()}
-
-          <div class="explanation">
-          <strong>${q.answer}</strong>
-
-          <br><br>
-
-          <strong>解説</strong>
-
-          <br>
-
-          ${q.explanation}
-          </div>
-
-          ${finish}
-
-          <p>
-          次のQRポイントを探してください。
-          </p>
-          `;
-
-      };
-
-
-    choices.appendChild(button);
-
-  });
-
-}
-
-
-/* =========================
-   表示判定
-========================= */
-
-if(
-  questionNumber >= 1 &&
-  questionNumber <= 5
-){
-
-  showQuestion(questionNumber);
-
-}else{
-
-  showTop();
-
-}
-
-</script>
-
-</body>
-</html>
+      <div clas
