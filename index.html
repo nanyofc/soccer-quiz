@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<title>南陽FC サッカールール クイズラリー</title>
+
+<style>
+:root{
+  --red:#c60012;
+  --green:#16834a;
+  --bg:#f5f6f6;
+  --card:#ffffff;
+  --text:#222;
+  --gray:#777;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Noto Sans JP",
+    "Yu Gothic",
+    sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+header{
+  background:var(--red);
+  color:#fff;
+  text-align:center;
+  padding:20px 12px;
+  font-size:21px;
+  font-weight:900;
+}
+
+.wrap{
+  width:100%;
+  max-width:650px;
+  margin:0 auto;
+  padding:22px;
+}
+
+.card{
+  background:var(--card);
+  border-radius:24px;
+  padding:28px;
+  box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.logo{
+  display:block;
+  width:78%;
+  max-width:320px;
+  height:auto;
+  margin:0 auto 25px;
+  object-fit:contain;
+}
+
+h1{
+  margin:0 0 20px;
+  font-size:30px;
+}
+
+p{
+  line-height:1.75;
+}
+
+.question{
+  white-space:pre-line;
+  font-size:19px;
+  font-weight:800;
+  line-height:1.7;
+  margin:22px 0;
+}
+
+.point{
+  color:#777;
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+.choice{
+  width:100%;
+  display:block;
+  background:#fff;
+  border:2px solid #d8dfdc;
+  border-radius:15px;
+  padding:17px;
+  margin:10px 0;
+  text-align:left;
+  font-size:16px;
+  font-weight:700;
+  line-height:1.5;
+}
+
+.choice:active{
+  transform:scale(.99);
+}
+
+.choice:disabled{
+  opacity:.6;
+}
+
+.correct{
+  color:var(--green);
+  font-size:18px;
+  font-weight:900;
+  line-height:1.6;
+}
+
+.wrong{
+  color:#c43d3d;
+  font-weight:900;
+}
+
+.explanation{
+  background:#f2f7f3;
+  border-left:5px solid var(--green);
+  padding:18px;
+  border-radius:10px;
+  white-space:pre-line;
+  line-height:1.8;
+  margin-top:15px;
+}
+
+.home-button{
+  width:100%;
+  margin-top:22px;
+  padding:16px;
+  background:#222;
+  color:#fff;
+  border:none;
+  border-radius:14px;
+  font-size:16px;
+  font-weight:800;
+}
+
+.center{
+  text-align:center;
+}
+
+.stamp-title{
+  margin-top:28px;
+  text-align:center;
+  font-weight:900;
+  font-size:18px;
+}
+
+.balls{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  margin:16px 0 10px;
+}
+
+.ball{
+  font-size:39px;
+  line-height:1;
+  filter:grayscale(100%);
+  opacity:.16;
+}
+
+.ball.done{
+  filter:none;
+  opacity:1;
+}
+
+.count{
+  text-align:center;
+  font-size:28px;
+  font-weight:900;
+  margin-top:8px;
+}
+
+.remaining{
+  text-align:center;
+  font-size:18px;
+  margin-top:18px;
+}
+
+.note{
+  color:#777;
+  font-size:14px;
+  margin-top:28px;
+  line-height:1.7;
+}
+
+.complete{
+  text-align:center;
+  color:var(--green);
+  font-size:22px;
+  font-weight:900;
+  margin-top:20px;
+}
+
+@media(max-width:430px){
+  .wrap{
+    padding:18px;
+  }
+
+  .card{
+    padding:24px;
+  }
+
+  .logo{
+    width:80%;
+  }
+
+  .ball{
+    font-size:36px;
+  }
+
+  h1{
+    font-size:28px;
+  }
+}
+</style>
+</head>
+
+
+<body>
+
+<header>
+南陽FC サッカールール クイズラリー
+</header>
+
+<div class="wrap">
+  <div class="card" id="app"></div>
+</div>
+
+
+<script>
+
+/* =========================
+   問題データ
+========================= */
+
+const questions = [
+
+{
+question:
+`守備側Aが、意図的に足で味方のゴールキーパーへボールを蹴った。
+ゴールキーパーは自陣ペナルティーエリア内で、そのボールを手でキャッチした。
+正しい判定は？`,
+
+choices:[
+"A. そのままプレーを続ける",
+"B. 相手チームのペナルティーキック",
+"C. 相手チームの間接フリーキック",
+"D. 相手チームのコーナーキック"
+],
+
+correct:2,
+
+answer:
+"正解：C　相手チームの間接フリーキック",
+
+explanation:
+`味方競技者が意図的に足でゴールキーパーへ蹴ったボールを、ゴールキーパーが自陣ペナルティーエリア内で手や腕で扱うと反則になります。
+
+相手チームに間接フリーキックが与えられます。
+
+味方が頭や胸、膝などで通常のプレーとしてGKへ返したボールは、原則として手で扱えます。`
+},
+
+
+{
+question:
+`ゴールキーパーが自陣ペナルティーエリア内で、手や腕でボールを8秒を超えてコントロールした場合、正しい判定は？`,
+
+choices:[
+"A. 相手チームの間接フリーキック",
+"B. 相手チームのコーナーキック",
+"C. 相手チームのペナルティキック",
+"D. ドロップボール"
+],
+
+correct:1,
+
+answer:
+"正解：B　相手チームのコーナーキック",
+
+explanation:
+`ゴールキーパーが手や腕でボールを8秒を超えてコントロールした場合、相手チームにコーナーキックが与えられます。
+
+主審は最後の5秒を手でカウントダウンして、ゴールキーパーに残り時間を知らせます。`
+},
+
+
+{
+question:
+`次のうち、オフサイドポジションにいる攻撃側競技者が味方から直接ボールを受けた場合、オフサイドの反則になる可能性があるものはどれ？`,
+
+choices:[
+"A. ゴールキック",
+"B. コーナーキック",
+"C. スローイン",
+"D. 間接フリーキック"
+],
+
+correct:3,
+
+answer:
+"正解：D　間接フリーキック",
+
+explanation:
+`ゴールキック・コーナーキック・スローインから直接ボールを受けた場合は、オフサイドになりません。
+
+一方、間接フリーキックにはオフサイドの適用があります。
+
+キックされた瞬間にオフサイドポジションにいた選手が、その後ボールをプレーするなどして反則の条件を満たせば、オフサイドとなります。`
+},
+
+
+{
+question:
+`攻撃側Aが前方へパスを出した瞬間、攻撃側Bはオフサイドポジションにいた。
+
+守備側Cは、そのパスが自分の方向へ来るのを確認し、時間と距離に余裕がある状態で、自らボールを蹴ってクリアしようとした。
+
+しかしキックをミスし、ボールは攻撃側Bのところへ渡った。
+
+攻撃側Bはそのままシュートして得点した。
+
+正しい判定は？`,
+
+choices:[
+"A. オフサイド判定、守備側の間接フリーキック",
+"B. ゴールを認める",
+"C. ドロップボールで再開",
+"D. オフサイド判定、守備側の直接フリーキック"
+],
+
+correct:1,
+
+answer:
+"正解：B　ゴールを認める",
+
+explanation:
+`守備側Cにはボールをプレーする時間・視野・身体のコントロールがあり、意図的にボールをプレーしているため、結果的にミスキックになっても「意図的なプレー」と判断できます。
+
+そのため、攻撃側Bがそのボールを受けてもオフサイドの反則にはなりません。`
+},
+
+
+{
+question:
+`守備側Aが自陣ペナルティーエリア内で、相手のクロスボールをクリアしようと足を出した。
+
+ボールは守備側A自身の足に当たった直後、自然な位置にあった守備側Aの腕に触れた。
+
+守備側Aは腕をボールの方向へ動かしておらず、腕によって身体を不自然に大きくしていなかった。
+
+正しい判定は？`,
+
+choices:[
+"A. ハンドの反則、攻撃側のペナルティーキック",
+"B. ハンドの反則、攻撃側の間接フリーキック",
+"C. 反則ではない。プレーを続ける",
+"D. ドロップボールで再開する"
+],
+
+correct:2,
+
+answer:
+"正解：C　反則ではない。プレーを続ける",
+
+explanation:
+`ボールが手や腕に触れたという事実だけで、すべてハンドの反則になるわけではありません。
+
+このケースでは、腕が身体の動きとして自然な位置にあり、ボールに向かって意図的に腕を動かしたわけでも、腕によって身体を不自然に大きくしたわけでもないため、ハンドの反則とはならず、プレー続行となります。`
+}
+
+];
+
+
+/* =========================
+   スタンプ保存
+========================= */
+
+/*
+ここを完全に新しい名前にしているので
+以前のテストスタンプは読み込みません。
+最初は必ず 0 / 5 です。
+*/
+
+const STORAGE_KEY =
+"nanyo_soccer_quiz_official_final_20260825_2131";
+
+
+let cleared = [];
+
+try{
+
+  const saved =
+  JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+
+  if(Array.isArray(saved)){
+    cleared = saved.filter(function(number){
+      return (
+        Number.isInteger(number) &&
+        number >= 1 &&
+        number <= 5
+      );
+    });
+  }
+
+}catch(e){
+
+  cleared = [];
+
+}
+
+
+/* 重複防止 */
+
+cleared = [...new Set(cleared)];
+
+
+/* =========================
+   共通
+========================= */
+
+const app =
+document.getElementById("app");
+
+const params =
+new URLSearchParams(window.location.search);
+
+const questionNumber =
+parseInt(params.get("q") || "0",10);
+
+
+function saveCleared(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(cleared)
+  );
+
+}
+
+
+function logoHTML(){
+
+  return `
+  <img
+    src="./nanyo.png"
+    class="logo"
+    alt="南陽FC"
+  >
+  `;
+
+}
+
+
+function stampHTML(){
+
+  let html =
+  '<div class="balls">';
+
+  for(let i=1;i<=5;i++){
+
+    if(cleared.includes(i)){
+
+      html +=
+      '<span class="ball done">⚽</span>';
+
+    }else{
+
+      html +=
+      '<span class="ball">⚽</span>';
+
+    }
+
+  }
+
+  html += '</div>';
+
+  return html;
+
+}
+
+
+function backHome(){
+
+  window.location.href =
+  window.location.pathname;
+
+}
+
+
+/* =========================
+   トップページ
+========================= */
+
+function showTop(){
+
+  const count =
+  cleared.length;
+
+  let completeMessage = "";
+
+  if(count === 5){
+
+    completeMessage =
+    `
+    <div class="complete">
+    🎉 全問クリア！
+    </div>
+    `;
+
+  }
+
+  app.innerHTML =
+
+  logoHTML() +
+
+  `
+  <h1>クイズラリー</h1>
+
+  <p>
+  各ポイントに設置されたQRコードを読み込むと、
+  その場所の問題が1問だけ表示されます。
+  </p>
+
+  <div class="stamp-title">
+  現在の取得スタンプ
+  </div>
+
+  ${stampHTML()}
+
+  <div class="count">
+  ${count} / 5
+  </div>
+
+  ${
+    count < 5
+    ?
+    `<div class="remaining">
+    あと ${5-count} ポイント！
+    </div>`
+    :
+    ""
+  }
+
+  ${completeMessage}
+
+  <div class="note">
+  ※問題は各スポットのQRコードからアクセスしてください。
+  </div>
+  `;
+
+}
+
+
+/* =========================
+   問題ページ
+========================= */
+
+function showQuestion(number){
+
+  const q =
+  questions[number-1];
+
+  app.innerHTML =
+
+  logoHTML() +
+
+  `
+  <div class="point">
+  POINT ${number} / 5
+  </div>
+
+  ${stampHTML()}
+
+  <div class="question">
+  ${q.question}
+  </div>
+
+  <div id="choices"></div>
+
+  <div id="message"></div>
+
+  <button
+    class="home-button"
+    onclick="backHome()"
+  >
+  ← トップページに戻る
+  </button>
+  `;
+
+
+  const choices =
+  document.getElementById("choices");
+
+
+  q.choices.forEach(function(text,index){
+
+    const button =
+    document.createElement("button");
+
+    button.className =
+    "choice";
+
+    button.textContent =
+    text;
+
+
+    button.onclick =
+    function(){
+
+      const message =
+      document.getElementById("message");
+
+
+      /* 不正解 */
+
+      if(index !== q.correct){
+
+        message.innerHTML =
+        `
+        <p class="wrong">
+        不正解。もう一度挑戦してください。
+        </p>
+        `;
+
+        return;
+
+      }
+
+
+      /* 正解した時だけスタンプ */
+
+      if(!cleared.includes(number)){
+
+        cleared.push(number);
+
+        cleared.sort(function(a,b){
+          return a-b;
+        });
+
+        saveCleared();
+
+      }
+
+
+      /* 選択肢を停止 */
+
+      const buttons =
+      choices.querySelectorAll("button");
+
+      buttons.forEach(function(btn){
+        btn.disabled = true;
+      });
+
+
+      let finish = "";
+
+      if(cleared.length === 5){
+
+        finish =
+        `
+        <div class="complete">
+        🎉 全問クリア！
+        </div>
+        `;
+
+      }
+
+
+      message.innerHTML =
+      `
+      <p class="correct">
+      正解！
+      サッカーボールスタンプ獲得 ⚽
+      </p>
+
+      ${stampHTML()}
+
+      <div class="explanation">
+      <strong>${q.answer}</strong>
+
+      <br><br>
+
+      <strong>解説</strong>
+
+      <br>
+
+      ${q.explanation}
+      </div>
+
+      ${finish}
+
+      <p>
+      次のQRポイントを探してください。
+      </p>
+      `;
+
+    };
+
+
+    choices.appendChild(button);
+
+  });
+
+}
+
+
+/* =========================
+   表示判定
+========================= */
+
+if(
+  questionNumber >= 1 &&
+  questionNumber <= 5
+){
+
+  showQuestion(questionNumber);
+
+}else{
+
+  showTop();
+
+}
+
+</script>
+
+</body>
+</html>
