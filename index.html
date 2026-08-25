@@ -6,28 +6,18 @@
 
 <title>南陽FC サッカールール クイズラリー</title>
 
+<!-- LIFF SDK -->
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link
-href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800;900&family=Zen+Maru+Gothic:wght@500;700;900&display=swap"
-rel="stylesheet">
-
 <style>
-
 :root{
   --red:#c60012;
-  --red2:#ee3443;
   --green:#16834a;
-  --green2:#28aa66;
-  --yellow:#ffd84d;
-  --bg:#fff7f7;
+  --bg:#f7f7f7;
   --card:#ffffff;
-  --text:#292323;
+  --text:#222;
   --gray:#777;
-  --gold:#d8a31a;
+  --gold:#e6ac00;
 }
 
 *{
@@ -35,1132 +25,423 @@ rel="stylesheet">
 }
 
 html{
-  scroll-behavior:smooth;
+  -webkit-tap-highlight-color:transparent;
 }
 
 body{
   margin:0;
-
   font-family:
-    "M PLUS Rounded 1c",
-    "Zen Maru Gothic",
+    "Hiragino Maru Gothic ProN",
+    "Hiragino Maru Gothic Pro",
+    "Yu Gothic",
+    "Noto Sans JP",
     sans-serif;
 
   background:
     radial-gradient(
-      circle at 20% 10%,
-      #ffe8ea,
-      transparent 35%
+      circle at 10% 10%,
+      rgba(255,210,215,.55),
+      transparent 28%
     ),
-    linear-gradient(
-      180deg,
-      #fffafa,
-      #f5f6f6
-    );
+    radial-gradient(
+      circle at 90% 35%,
+      rgba(220,245,230,.7),
+      transparent 30%
+    ),
+    var(--bg);
 
   color:var(--text);
-
-  animation:
-    pageFade .6s ease;
+  min-height:100vh;
 }
-
-@keyframes pageFade{
-
-  from{
-    opacity:0;
-    transform:translateY(8px);
-  }
-
-  to{
-    opacity:1;
-    transform:none;
-  }
-
-}
-
 
 header{
-
-  background:
-    linear-gradient(
-      135deg,
-      #9e0010,
-      var(--red),
-      #ec3341
-    );
-
+  background:linear-gradient(135deg,#b90011,#df0018);
   color:#fff;
-
   text-align:center;
-
-  padding:
-    18px 12px;
-
-  font-size:20px;
-
+  padding:20px 12px;
+  font-size:21px;
   font-weight:900;
-
-  letter-spacing:.03em;
-
-  box-shadow:
-    0 5px 16px rgba(198,0,18,.23);
-
+  letter-spacing:.5px;
+  box-shadow:0 4px 15px rgba(198,0,18,.22);
 }
-
 
 .wrap{
-
   width:100%;
-
   max-width:650px;
-
   margin:0 auto;
-
-  padding:20px;
-
+  padding:22px;
 }
-
 
 .card{
-
-  position:relative;
-
-  overflow:hidden;
-
-  background:
-    rgba(255,255,255,.97);
-
+  background:rgba(255,255,255,.96);
   border-radius:28px;
-
   padding:28px;
-
   box-shadow:
     0 12px 35px rgba(0,0,0,.09);
-
-  animation:
-    cardIn .55s cubic-bezier(.2,.8,.2,1);
-
+  animation:cardIn .45s ease;
 }
-
 
 @keyframes cardIn{
-
   from{
-    transform:
-      translateY(20px)
-      scale(.97);
-
     opacity:0;
+    transform:translateY(15px);
   }
-
   to{
-    transform:none;
     opacity:1;
+    transform:translateY(0);
   }
-
 }
-
 
 .logo{
-
   display:block;
-
   width:78%;
-
-  max-width:320px;
-
+  max-width:300px;
   height:auto;
-
-  margin:
-    0 auto
-    24px;
-
+  margin:0 auto 25px;
   object-fit:contain;
-
-  transition:
-    transform .18s ease;
-
   user-select:none;
-
-  -webkit-user-select:none;
-
 }
-
-
-.logo:active{
-
-  transform:
-    scale(.94)
-    rotate(-1deg);
-
-}
-
 
 h1{
-
-  margin:
-    0 0 18px;
-
+  margin:0 0 20px;
   font-size:30px;
-
   font-weight:900;
-
-  letter-spacing:.02em;
-
 }
-
 
 p{
-
   line-height:1.8;
-
 }
-
 
 .question{
-
   white-space:pre-line;
-
   font-size:19px;
-
   font-weight:800;
-
   line-height:1.75;
-
-  margin:
-    22px 0;
-
+  margin:22px 0;
 }
-
 
 .point{
-
   display:inline-block;
-
-  color:#fff;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--red),
-      var(--red2)
-    );
-
+  background:#f1f1f1;
+  color:#555;
   font-weight:900;
-
+  padding:7px 13px;
+  border-radius:30px;
   margin-bottom:10px;
-
-  padding:
-    6px 13px;
-
-  border-radius:999px;
-
 }
-
 
 .choice{
-
   width:100%;
-
   display:block;
-
   background:#fff;
-
-  border:
-    2px solid #eadfe0;
-
-  border-radius:17px;
-
+  border:2px solid #d8dfdc;
+  border-radius:18px;
   padding:17px;
-
   margin:11px 0;
-
   text-align:left;
-
-  font-family:inherit;
-
   font-size:16px;
-
-  font-weight:800;
-
-  line-height:1.55;
-
-  box-shadow:
-    0 3px 10px rgba(0,0,0,.03);
-
+  font-family:inherit;
+  font-weight:700;
+  line-height:1.5;
   transition:
-    transform .15s,
-    border-color .15s,
-    box-shadow .15s;
-
+    transform .12s ease,
+    border-color .15s ease,
+    box-shadow .15s ease;
 }
-
 
 .choice:active{
-
-  transform:
-    scale(.975);
-
-  border-color:
-    var(--red);
-
+  transform:scale(.97);
 }
-
 
 .choice:disabled{
-
-  opacity:.58;
-
+  opacity:.6;
 }
-
 
 .correct{
-
   color:var(--green);
-
   font-size:19px;
-
   font-weight:900;
-
-  line-height:1.65;
-
-  animation:
-    correctPop .5s ease;
-
+  line-height:1.6;
+  animation:pop .4s ease;
 }
-
-
-@keyframes correctPop{
-
-  0%{
-    transform:
-      scale(.7);
-
-    opacity:0;
-  }
-
-  65%{
-    transform:
-      scale(1.08);
-  }
-
-  100%{
-    transform:
-      scale(1);
-    opacity:1;
-  }
-
-}
-
 
 .wrong{
-
   color:#c43d3d;
-
   font-weight:900;
-
-  animation:
-    shake .4s ease;
-
+  animation:shake .3s ease;
 }
-
 
 @keyframes shake{
-
-  0%,100%{
-    transform:
-      translateX(0);
-  }
-
-  25%{
-    transform:
-      translateX(-7px);
-  }
-
-  50%{
-    transform:
-      translateX(7px);
-  }
-
-  75%{
-    transform:
-      translateX(-4px);
-  }
-
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-6px)}
+  75%{transform:translateX(6px)}
 }
 
+@keyframes pop{
+  0%{transform:scale(.85);opacity:0}
+  70%{transform:scale(1.08)}
+  100%{transform:scale(1);opacity:1}
+}
 
 .explanation{
-
-  background:
-    linear-gradient(
-      135deg,
-      #f0faf4,
-      #fff
-    );
-
-  border-left:
-    6px solid var(--green);
-
+  background:#f2f7f3;
+  border-left:5px solid var(--green);
   padding:18px;
-
-  border-radius:14px;
-
+  border-radius:12px;
   white-space:pre-line;
-
-  line-height:1.85;
-
+  line-height:1.8;
   margin-top:15px;
-
-  box-shadow:
-    0 5px 14px rgba(22,131,74,.08);
-
 }
-
 
 .home-button,
 .scan-button,
 .gacha-button{
-
   width:100%;
-
-  font-family:inherit;
-
   border:none;
-
+  color:#fff;
+  border-radius:18px;
+  font-family:inherit;
+  font-weight:900;
   cursor:pointer;
-
+  transition:transform .12s ease;
 }
 
+.home-button:active,
+.scan-button:active,
+.gacha-button:active{
+  transform:scale(.97);
+}
 
 .home-button{
-
   margin-top:22px;
-
   padding:16px;
-
-  background:#262222;
-
-  color:#fff;
-
-  border-radius:15px;
-
+  background:#222;
   font-size:16px;
-
-  font-weight:900;
-
 }
-
 
 .scan-button{
-
-  margin-top:24px;
-
+  margin-top:22px;
   padding:18px;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--green),
-      var(--green2)
-    );
-
-  color:#fff;
-
-  border-radius:18px;
-
+  background:linear-gradient(135deg,#16834a,#20a960);
   font-size:18px;
-
-  font-weight:900;
-
-  box-shadow:
-    0 7px 18px rgba(22,131,74,.22);
-
-  animation:
-    scanPulse 2.2s infinite;
-
+  box-shadow:0 7px 20px rgba(22,131,74,.25);
 }
-
-
-@keyframes scanPulse{
-
-  0%,100%{
-    transform:scale(1);
-  }
-
-  50%{
-    transform:scale(1.025);
-  }
-
-}
-
-
-.scan-button:active{
-
-  transform:
-    scale(.97);
-
-}
-
-
-.center{
-
-  text-align:center;
-
-}
-
 
 .stamp-title{
-
-  margin-top:29px;
-
+  margin-top:30px;
   text-align:center;
-
   font-weight:900;
-
-  font-size:18px;
-
+  font-size:19px;
 }
-
 
 .balls{
-
   display:flex;
-
   justify-content:center;
-
   align-items:center;
-
-  gap:9px;
-
-  margin:
-    16px 0 10px;
-
+  gap:7px;
+  margin:17px 0 10px;
 }
-
 
 .ball{
-
-  display:inline-block;
-
   font-size:39px;
-
   line-height:1;
-
-  filter:
-    grayscale(100%);
-
-  opacity:.13;
-
+  filter:grayscale(100%);
+  opacity:.14;
 }
-
 
 .ball.done{
-
   filter:none;
-
   opacity:1;
-
-  animation:
-    ballGet .65s cubic-bezier(.3,1.8,.4,1);
-
+  animation:stampPop .45s ease;
 }
 
-
-@keyframes ballGet{
-
+@keyframes stampPop{
   0%{
-    transform:
-      translateY(-24px)
-      scale(.1)
-      rotate(-180deg);
-
+    transform:scale(2) rotate(-20deg);
     opacity:0;
   }
-
   70%{
-    transform:
-      translateY(3px)
-      scale(1.22)
-      rotate(15deg);
+    transform:scale(.9) rotate(5deg);
   }
-
   100%{
-    transform:
-      scale(1)
-      rotate(0);
+    transform:scale(1);
   }
-
 }
-
 
 .count{
-
   text-align:center;
-
-  font-size:29px;
-
+  font-size:30px;
   font-weight:900;
-
-  margin-top:8px;
-
+  margin-top:10px;
 }
-
 
 .remaining{
-
   text-align:center;
-
   font-size:18px;
-
-  margin-top:16px;
-
+  margin-top:18px;
   font-weight:700;
-
 }
-
 
 .note{
-
   color:#777;
-
-  font-size:13px;
-
-  margin-top:26px;
-
-  line-height:1.7;
-
+  font-size:14px;
+  margin-top:28px;
+  line-height:1.8;
 }
-
 
 .complete{
-
   text-align:center;
-
   color:var(--green);
-
-  font-size:25px;
-
+  font-size:24px;
   font-weight:900;
-
-  margin-top:22px;
-
-  animation:
-    completePop .65s ease;
-
+  margin:25px 0 15px;
+  animation:pop .55s ease;
 }
 
 
-@keyframes completePop{
-
-  from{
-    transform:
-      scale(.35)
-      rotate(-5deg);
-
-    opacity:0;
-  }
-
-  70%{
-    transform:
-      scale(1.12);
-  }
-
-  to{
-    transform:
-      scale(1);
-    opacity:1;
-  }
-
-}
-
-
-/* =========================
+/* =====================
    ガチャ
-========================= */
-
+===================== */
 
 .gacha-area{
-
-  position:relative;
-
-  overflow:hidden;
-
-  margin-top:28px;
-
-  padding:
-    24px 18px;
-
-  border-radius:24px;
-
-  background:
-    linear-gradient(
-      160deg,
-      #fff8d8,
-      #fff,
-      #fff0d6
-    );
-
-  border:
-    3px solid #f0cf68;
-
+  margin-top:30px;
+  padding:24px 18px;
   text-align:center;
-
-  box-shadow:
-    0 9px 26px rgba(216,163,26,.17);
-
-}
-
-
-.gacha-area:before{
-
-  content:"";
-
-  position:absolute;
-
-  top:-100%;
-
-  left:-40%;
-
-  width:45%;
-
-  height:300%;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.85),
-      transparent
-    );
-
-  transform:
-    rotate(25deg);
-
-  animation:
-    shine 3.2s infinite;
-
-}
-
-
-@keyframes shine{
-
-  0%{
-    left:-70%;
-  }
-
-  50%,
-  100%{
-    left:150%;
-  }
-
-}
-
-
-.gacha-title{
-
-  position:relative;
-
-  font-size:25px;
-
-  font-weight:900;
-
-  margin-bottom:8px;
-
-}
-
-
-.gacha-sub{
-
-  position:relative;
-
-  font-size:14px;
-
-  color:#777;
-
-}
-
-
-.gacha-machine{
-
-  width:190px;
-
-  height:230px;
-
-  margin:
-    22px auto;
-
-  position:relative;
-
-}
-
-
-.gacha-top{
-
-  width:160px;
-
-  height:160px;
-
-  margin:0 auto;
-
-  border-radius:50%;
-
-  border:
-    8px solid #272222;
-
-  background:
-
-    radial-gradient(
-      circle at 22% 25%,
-      #ff5b69 0 13%,
-      transparent 14%
-    ),
-
-    radial-gradient(
-      circle at 68% 28%,
-      #ffd84d 0 15%,
-      transparent 16%
-    ),
-
-    radial-gradient(
-      circle at 35% 70%,
-      #42bd72 0 16%,
-      transparent 17%
-    ),
-
-    radial-gradient(
-      circle at 73% 68%,
-      #5b91ff 0 15%,
-      transparent 16%
-    ),
-
-    #fafafa;
-
-  overflow:hidden;
-
-}
-
-
-.gacha-base{
-
-  width:130px;
-
-  height:78px;
-
-  margin:
-    -8px auto 0;
-
-  background:
-    linear-gradient(
-      180deg,
-      #333,
-      #171717
-    );
-
-  border-radius:
-    14px 14px 23px 23px;
-
-  position:relative;
-
-}
-
-
-.handle{
-
-  width:56px;
-
-  height:18px;
-
-  background:#eee;
-
-  border:
-    5px solid #222;
-
-  border-radius:12px;
-
-  position:absolute;
-
-  left:37px;
-
-  top:17px;
-
-}
-
-
-.exit{
-
-  width:42px;
-
-  height:23px;
-
-  background:#080808;
-
-  border-radius:
-    0 0 14px 14px;
-
-  position:absolute;
-
-  left:44px;
-
-  bottom:8px;
-
-}
-
-
-.gacha-machine.spinning{
-
-  animation:
-    machineShake .13s linear infinite;
-
-}
-
-
-.gacha-machine.spinning .gacha-top{
-
-  animation:
-    ballSpin .38s linear infinite;
-
-}
-
-
-.gacha-machine.spinning .handle{
-
-  animation:
-    handleTurn .48s linear infinite;
-
-}
-
-
-@keyframes machineShake{
-
-  0%{
-    transform:
-      translateX(-4px)
-      rotate(-1deg);
-  }
-
-  50%{
-    transform:
-      translateX(4px)
-      rotate(1deg);
-  }
-
-  100%{
-    transform:
-      translateX(-4px)
-      rotate(-1deg);
-  }
-
-}
-
-
-@keyframes ballSpin{
-
-  from{
-    transform:
-      rotate(0);
-  }
-
-  to{
-    transform:
-      rotate(360deg);
-  }
-
-}
-
-
-@keyframes handleTurn{
-
-  from{
-    transform:
-      rotate(0);
-  }
-
-  to{
-    transform:
-      rotate(360deg);
-  }
-
-}
-
-
-.gacha-button{
-
-  position:relative;
-
-  padding:18px;
-
-  border-radius:18px;
-
+  border-radius:24px;
   background:
     linear-gradient(
       135deg,
-      #ffe069,
-      #ffbb16,
-      #f18c00
+      #fff7d6,
+      #fff,
+      #fff2bd
     );
+  border:2px solid #f2d46d;
+}
 
-  color:#2b2100;
-
-  font-size:20px;
-
+.gacha-title{
+  font-size:27px;
   font-weight:900;
-
-  box-shadow:
-    0 7px 17px rgba(214,155,0,.28);
-
+  margin-bottom:8px;
 }
 
-
-.gacha-button:active{
-
-  transform:
-    scale(.97);
-
+.gacha-sub{
+  font-size:15px;
+  color:#666;
+  line-height:1.7;
 }
 
+.gacha-machine{
+  font-size:90px;
+  margin:20px 0;
+  line-height:1;
+}
+
+.gacha-machine.spinning{
+  animation:gachaShake .12s linear infinite;
+}
+
+@keyframes gachaShake{
+  0%{transform:translate(-3px,-1px) rotate(-3deg)}
+  25%{transform:translate(3px,2px) rotate(3deg)}
+  50%{transform:translate(-2px,3px) rotate(-2deg)}
+  75%{transform:translate(3px,-2px) rotate(2deg)}
+  100%{transform:translate(0,0)}
+}
+
+.gacha-button{
+  padding:19px;
+  font-size:20px;
+  background:
+    linear-gradient(
+      135deg,
+      #f0a500,
+      #ffca28
+    );
+  color:#3b2a00;
+  box-shadow:0 8px 20px rgba(230,172,0,.28);
+}
 
 .gacha-button:disabled{
-
-  opacity:.6;
-
+  background:#bbb;
+  color:#fff;
+  box-shadow:none;
 }
-
 
 .gacha-result{
+  margin-top:22px;
+  min-height:30px;
+}
 
-  display:none;
-
-  position:relative;
-
-  margin-top:24px;
-
-  padding:
-    25px 15px;
-
+.prize{
   border-radius:20px;
-
+  padding:24px 15px;
   background:#fff;
-
-  border:
-    3px solid var(--gold);
-
+  box-shadow:0 7px 25px rgba(0,0,0,.12);
+  animation:prizeIn .65s cubic-bezier(.2,.8,.2,1);
 }
 
-
-.gacha-result.show{
-
-  display:block;
-
-  animation:
-    resultPop .6s cubic-bezier(.2,1.7,.3,1);
-
-}
-
-
-@keyframes resultPop{
-
+@keyframes prizeIn{
   0%{
-    transform:
-      scale(.25)
-      rotate(-7deg);
-
+    transform:scale(.3) rotate(-15deg);
     opacity:0;
   }
-
-  70%{
-    transform:
-      scale(1.15);
+  60%{
+    transform:scale(1.15) rotate(3deg);
   }
-
   100%{
-    transform:
-      scale(1);
+    transform:scale(1);
     opacity:1;
   }
-
 }
 
-
-.result-rank{
-
-  font-size:35px;
-
+.prize-rank{
+  font-size:17px;
   font-weight:900;
-
-  margin-bottom:10px;
-
+  color:#a47800;
 }
 
-
-.result-prize{
-
-  font-size:21px;
-
+.prize-name{
+  margin-top:8px;
+  font-size:29px;
   font-weight:900;
-
 }
 
-
-.already{
-
-  font-size:14px;
-
+.used-message{
+  font-weight:900;
   color:#777;
-
-  margin-top:14px;
-
+  margin-top:15px;
 }
 
 
-/* =========================
-   紙吹雪
-========================= */
-
+/* 紙吹雪 */
 
 .confetti{
-
   position:fixed;
-
-  z-index:9999;
-
+  top:-20px;
   width:10px;
-
   height:16px;
-
-  top:-25px;
-
+  z-index:9999;
   pointer-events:none;
-
-  animation:
-    confettiFall linear forwards;
-
+  animation:fall linear forwards;
 }
 
-
-@keyframes confettiFall{
-
+@keyframes fall{
   to{
-
     transform:
       translateY(110vh)
-      rotate(900deg);
-
-    opacity:.5;
-
+      rotate(720deg);
   }
-
 }
 
 
 @media(max-width:430px){
 
   .wrap{
-    padding:17px;
+    padding:18px;
   }
 
   .card{
-    padding:23px;
+    padding:24px;
   }
 
   .logo{
@@ -1175,6 +456,9 @@ p{
     font-size:28px;
   }
 
+  .gacha-machine{
+    font-size:78px;
+  }
 }
 
 </style>
@@ -1188,48 +472,51 @@ p{
 </header>
 
 <div class="wrap">
-
-<div
-class="card"
-id="app">
-</div>
-
+  <div class="card" id="app"></div>
 </div>
 
 
 <script>
+
+/* =========================
+   設定
+========================= */
+
+const LIFF_ID =
+  "2011248919-qSr0JfnE";
+
+const STORAGE_KEY =
+  "nanyo_soccer_quiz_official_final_20260825_2131";
+
+const GACHA_KEY =
+  "nanyo_soccer_quiz_gacha_used_v1";
+
+/*
+  試作用ガチャ総数
+*/
+const TOTAL_GACHA = 1000;
 
 
 /* =========================
    LIFF
 ========================= */
 
-
-const LIFF_ID =
-"2011248919-qSr0JfnE";
-
-
-let liffReady =
-false;
-
+let liffReady = false;
 
 async function initializeLiff(){
 
   try{
 
     await liff.init({
-
-      liffId:
-      LIFF_ID
-
+      liffId:LIFF_ID
     });
 
-    liffReady =
-    true;
+    liffReady = true;
 
   }catch(error){
 
     console.error(
+      "LIFF initialization failed",
       error
     );
 
@@ -1237,40 +524,28 @@ async function initializeLiff(){
 
 }
 
-
 initializeLiff();
 
 
-
 /* =========================
-   QRコード読み取り
+   QRコード
 ========================= */
-
 
 async function scanQR(){
 
   try{
 
-    if(
-      !liffReady
-    ){
+    if(!liffReady){
 
       await liff.init({
-
-        liffId:
-        LIFF_ID
-
+        liffId:LIFF_ID
       });
 
-      liffReady =
-      true;
+      liffReady = true;
 
     }
 
-
-    if(
-      !liff.isInClient()
-    ){
+    if(!liff.isInClient()){
 
       alert(
         "QRコードの読み取りはLINEアプリ内からご利用ください。"
@@ -1280,34 +555,25 @@ async function scanQR(){
 
     }
 
-
     const result =
       await liff.scanCodeV2();
-
 
     if(
       !result ||
       !result.value
     ){
-
       return;
-
     }
-
 
     const scanned =
       result.value.trim();
 
-
     let url;
-
 
     try{
 
       url =
-        new URL(
-          scanned
-        );
+        new URL(scanned);
 
     }catch(e){
 
@@ -1319,18 +585,9 @@ async function scanQR(){
 
     }
 
-
     if(
-
-      url.hostname !==
-      "nanyofc.github.io"
-
-      ||
-
-      !url.pathname.startsWith(
-        "/soccer-quiz"
-      )
-
+      url.hostname !== "nanyofc.github.io" ||
+      !url.pathname.startsWith("/soccer-quiz")
     ){
 
       alert(
@@ -1341,33 +598,16 @@ async function scanQR(){
 
     }
 
-
     const number =
       parseInt(
-
-        url.searchParams.get(
-          "q"
-        ),
-
+        url.searchParams.get("q"),
         10
-
       );
 
-
     if(
-
-      !Number.isInteger(
-        number
-      )
-
-      ||
-
-      number < 1
-
-      ||
-
+      !Number.isInteger(number) ||
+      number < 1 ||
       number > 5
-
     ){
 
       alert(
@@ -1378,23 +618,15 @@ async function scanQR(){
 
     }
 
-
     window.location.href =
-
-      window.location.pathname
-
-      +
-
-      "?q="
-
-      +
-
+      window.location.pathname +
+      "?q=" +
       number;
-
 
   }catch(error){
 
     console.error(
+      "QR scan error",
       error
     );
 
@@ -1403,136 +635,86 @@ async function scanQR(){
 }
 
 
-
 /* =========================
-   問題データ
+   問題
 ========================= */
-
 
 const questions = [
 
-
 {
-
 question:
-
 `守備側Aが、意図的に足で味方のゴールキーパーへボールを蹴った。
 ゴールキーパーは自陣ペナルティーエリア内で、そのボールを手でキャッチした。
 正しい判定は？`,
 
-
 choices:[
-
 "A. そのままプレーを続ける",
-
 "B. 相手チームのペナルティーキック",
-
 "C. 相手チームの間接フリーキック",
-
 "D. 相手チームのコーナーキック"
-
 ],
-
 
 correct:2,
 
-
 answer:
-
 "正解：C　相手チームの間接フリーキック",
 
-
 explanation:
-
 `味方競技者が意図的に足でゴールキーパーへ蹴ったボールを、ゴールキーパーが自陣ペナルティーエリア内で手や腕で扱うと反則になります。
 
 相手チームに間接フリーキックが与えられます。
 
 味方が頭や胸、膝などで通常のプレーとしてGKへ返したボールは、原則として手で扱えます。`
-
 },
 
-
 {
-
 question:
-
 `ゴールキーパーが自陣ペナルティーエリア内で、手や腕でボールを8秒を超えてコントロールした場合、正しい判定は？`,
 
-
 choices:[
-
 "A. 相手チームの間接フリーキック",
-
 "B. 相手チームのコーナーキック",
-
 "C. 相手チームのペナルティキック",
-
 "D. ドロップボール"
-
 ],
-
 
 correct:1,
 
-
 answer:
-
 "正解：B　相手チームのコーナーキック",
 
-
 explanation:
-
 `ゴールキーパーが手や腕でボールを8秒を超えてコントロールした場合、相手チームにコーナーキックが与えられます。
 
 主審は最後の5秒を手でカウントダウンして、ゴールキーパーに残り時間を知らせます。`
-
 },
 
-
 {
-
 question:
-
 `次のうち、オフサイドポジションにいる攻撃側競技者が味方から直接ボールを受けた場合、オフサイドの反則になる可能性があるものはどれ？`,
 
-
 choices:[
-
 "A. ゴールキック",
-
 "B. コーナーキック",
-
 "C. スローイン",
-
 "D. 間接フリーキック"
-
 ],
-
 
 correct:3,
 
-
 answer:
-
 "正解：D　間接フリーキック",
 
-
 explanation:
-
 `ゴールキック・コーナーキック・スローインから直接ボールを受けた場合は、オフサイドになりません。
 
 一方、間接フリーキックにはオフサイドの適用があります。
 
 キックされた瞬間にオフサイドポジションにいた選手が、その後ボールをプレーするなどして反則の条件を満たせば、オフサイドとなります。`
-
 },
 
-
 {
-
 question:
-
 `攻撃側Aが前方へパスを出した瞬間、攻撃側Bはオフサイドポジションにいた。
 
 守備側Cは、そのパスが自分の方向へ来るのを確認し、時間と距離に余裕がある状態で、自らボールを蹴ってクリアしようとした。
@@ -1543,41 +725,26 @@ question:
 
 正しい判定は？`,
 
-
 choices:[
-
 "A. オフサイド判定、守備側の間接フリーキック",
-
 "B. ゴールを認める",
-
 "C. ドロップボールで再開",
-
 "D. オフサイド判定、守備側の直接フリーキック"
-
 ],
-
 
 correct:1,
 
-
 answer:
-
 "正解：B　ゴールを認める",
 
-
 explanation:
-
 `守備側Cにはボールをプレーする時間・視野・身体のコントロールがあり、意図的にボールをプレーしているため、結果的にミスキックになっても「意図的なプレー」と判断できます。
 
 そのため、攻撃側Bがそのボールを受けてもオフサイドの反則にはなりません。`
-
 },
 
-
 {
-
 question:
-
 `守備側Aが自陣ペナルティーエリア内で、相手のクロスボールをクリアしようと足を出した。
 
 ボールは守備側A自身の足に当たった直後、自然な位置にあった守備側Aの腕に触れた。
@@ -1586,637 +753,781 @@ question:
 
 正しい判定は？`,
 
-
 choices:[
-
 "A. ハンドの反則、攻撃側のペナルティーキック",
-
 "B. ハンドの反則、攻撃側の間接フリーキック",
-
 "C. 反則ではない。プレーを続ける",
-
 "D. ドロップボールで再開する"
-
 ],
-
 
 correct:2,
 
-
 answer:
-
 "正解：C　反則ではない。プレーを続ける",
 
-
 explanation:
-
 `ボールが手や腕に触れたという事実だけで、すべてハンドの反則になるわけではありません。
 
 このケースでは、腕が身体の動きとして自然な位置にあり、ボールに向かって意図的に腕を動かしたわけでも、腕によって身体を不自然に大きくしたわけでもないため、ハンドの反則とはならず、プレー続行となります。`
-
 }
-
 
 ];
-
-
-
-/* =========================
-   保存キー
-========================= */
-
-
-const STORAGE_KEY =
-
-"nanyo_soccer_quiz_official_final_20260825_2131";
-
-
-const GACHA_KEY =
-
-"nanyo_soccer_quiz_gacha_test_20260825";
-
-
-
-let cleared =
-[];
-
-
-try{
-
-  const saved =
-
-    JSON.parse(
-
-      localStorage.getItem(
-        STORAGE_KEY
-      )
-
-      ||
-
-      "[]"
-
-    );
-
-
-  if(
-    Array.isArray(
-      saved
-    )
-  ){
-
-    cleared =
-
-      saved.filter(
-
-        function(number){
-
-          return (
-
-            Number.isInteger(
-              number
-            )
-
-            &&
-
-            number >= 1
-
-            &&
-
-            number <= 5
-
-          );
-
-        }
-
-      );
-
-  }
-
-}catch(e){
-
-  cleared =
-  [];
-
-}
-
-
-cleared =
-[...new Set(cleared)];
-
-
-
-/* =========================
-   ガチャ1000口設定
-========================= */
-
-
-const GACHA_TOTAL =
-1000;
-
-
-const GACHA_PRIZES = [
-
-
-{
-
-rank:
-"🎊 1等",
-
-prize:
-"特賞",
-
-count:
-10
-
-},
-
-
-{
-
-rank:
-"🥈 2等",
-
-prize:
-"景品A",
-
-count:
-40
-
-},
-
-
-{
-
-rank:
-"🥉 3等",
-
-prize:
-"景品B",
-
-count:
-150
-
-},
-
-
-{
-
-rank:
-"⚽ 参加賞",
-
-prize:
-"参加賞",
-
-count:
-800
-
-}
-
-
-];
-
-
-
-/* =========================
-   共通
-========================= */
-
-
-const app =
-
-document.getElementById(
-  "app"
-);
-
-
-const params =
-
-new URLSearchParams(
-  window.location.search
-);
-
-
-const questionNumber =
-
-parseInt(
-
-  params.get(
-    "q"
-  )
-
-  ||
-
-  "0",
-
-  10
-
-);
-
-
-
-function saveCleared(){
-
-  localStorage.setItem(
-
-    STORAGE_KEY,
-
-    JSON.stringify(
-      cleared
-    )
-
-  );
-
-}
-
-
-
-/* =========================
-   隠しリセット
-========================= */
-
-
-let secretTapCount =
-0;
-
-
-let secretTimer =
-null;
-
-
-function secretLogoTap(){
-
-  secretTapCount++;
-
-
-  clearTimeout(
-    secretTimer
-  );
-
-
-  secretTimer =
-
-    setTimeout(
-      function(){
-
-        secretTapCount =
-        0;
-
-      },
-
-      2500
-    );
-
-
-  if(
-    secretTapCount >= 7
-  ){
-
-    secretTapCount =
-    0;
-
-
-    const result =
-
-      confirm(
-
-        "【テスト用】\nガチャ履歴をリセットしますか？"
-
-      );
-
-
-    if(
-      result
-    ){
-
-      localStorage.removeItem(
-        GACHA_KEY
-      );
-
-
-      alert(
-        "ガチャ履歴をリセットしました。"
-      );
-
-
-      location.reload();
-
-    }
-
-  }
-
-}
-
-
-
-/* =========================
-   ロゴ
-========================= */
-
-
-function logoHTML(){
-
-  return `
-
-  <img
-
-    src="./nanyo.png"
-
-    class="logo"
-
-    alt="南陽FC"
-
-    onclick="secretLogoTap()"
-
-  >
-
-  `;
-
-}
-
 
 
 /* =========================
    スタンプ
 ========================= */
 
+let cleared = [];
+
+try{
+
+  const saved =
+    JSON.parse(
+      localStorage.getItem(STORAGE_KEY)
+      || "[]"
+    );
+
+  if(Array.isArray(saved)){
+
+    cleared =
+      saved.filter(function(number){
+
+        return (
+          Number.isInteger(number) &&
+          number >= 1 &&
+          number <= 5
+        );
+
+      });
+
+  }
+
+}catch(e){
+
+  cleared = [];
+
+}
+
+cleared =
+  [...new Set(cleared)];
+
+
+function saveCleared(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(cleared)
+  );
+
+}
+
+
+/* =========================
+   共通
+========================= */
+
+const app =
+  document.getElementById("app");
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+const questionNumber =
+  parseInt(
+    params.get("q") || "0",
+    10
+  );
+
+
+function logoHTML(){
+
+  return `
+  <img
+    src="./nanyo.png"
+    class="logo"
+    id="secretLogo"
+    alt="南陽FC"
+  >
+  `;
+
+}
+
 
 function stampHTML(){
 
   let html =
-
     '<div class="balls">';
 
+  for(let i=1;i<=5;i++){
 
-  for(
-    let i=1;
-    i<=5;
-    i++
-  ){
-
-    if(
-      cleared.includes(i)
-    ){
+    if(cleared.includes(i)){
 
       html +=
-
         '<span class="ball done">⚽</span>';
 
     }else{
 
       html +=
-
         '<span class="ball">⚽</span>';
 
     }
 
   }
 
-
-  html +=
-
-    '</div>';
-
+  html += '</div>';
 
   return html;
 
 }
 
 
-
 function backHome(){
 
   window.location.href =
-
     window.location.pathname;
 
 }
 
+
+/* =========================
+   隠しリセット
+========================= */
+
+let secretTapCount = 0;
+let secretTimer = null;
+
+
+function setupSecretReset(){
+
+  const logo =
+    document.getElementById(
+      "secretLogo"
+    );
+
+  if(!logo){
+    return;
+  }
+
+  logo.addEventListener(
+    "click",
+    function(){
+
+      secretTapCount++;
+
+      clearTimeout(secretTimer);
+
+      secretTimer =
+        setTimeout(function(){
+
+          secretTapCount = 0;
+
+        },3000);
+
+
+      if(secretTapCount >= 7){
+
+        secretTapCount = 0;
+
+        const ok =
+          confirm(
+            "【管理用】\nガチャ履歴をリセットしますか？"
+          );
+
+        if(ok){
+
+          localStorage.removeItem(
+            GACHA_KEY
+          );
+
+          alert(
+            "ガチャ履歴をリセットしました。"
+          );
+
+          showTop();
+
+        }
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================
+   ガチャ設定
+========================= */
+
+/*
+  合計1000個
+
+  特賞  5
+  1等  20
+  2等  75
+  3等  200
+  参加賞 700
+*/
+
+const GACHA_PRIZES = [
+
+{
+rank:"特賞",
+name:"スペシャル賞",
+count:5
+},
+
+{
+rank:"1等",
+name:"1等賞",
+count:20
+},
+
+{
+rank:"2等",
+name:"2等賞",
+count:75
+},
+
+{
+rank:"3等",
+name:"3等賞",
+count:200
+},
+
+{
+rank:"参加賞",
+name:"参加賞",
+count:700
+}
+
+];
+
+
+function hasUsedGacha(){
+
+  return (
+    localStorage.getItem(
+      GACHA_KEY
+    ) === "1"
+  );
+
+}
+
+
+/*
+  1000個の中から抽選
+*/
+
+function drawPrize(){
+
+  const random =
+    Math.floor(
+      Math.random() *
+      TOTAL_GACHA
+    ) + 1;
+
+  let cumulative = 0;
+
+  for(
+    const prize of GACHA_PRIZES
+  ){
+
+    cumulative +=
+      prize.count;
+
+    if(random <= cumulative){
+
+      return prize;
+
+    }
+
+  }
+
+  return GACHA_PRIZES[
+    GACHA_PRIZES.length - 1
+  ];
+
+}
 
 
 /* =========================
    紙吹雪
 ========================= */
 
+function createConfetti(){
 
-function confetti(
-
-  amount = 55
-
-){
-
-  const colors = [
-
-    "#c60012",
-
-    "#ffd84d",
-
-    "#16834a",
-
-    "#4b89ff",
-
-    "#ff75b5",
-
-    "#9c5cff"
-
+  const symbols = [
+    "🎉",
+    "⭐",
+    "⚽",
+    "✨",
+    "🎊"
   ];
 
+  for(let i=0;i<35;i++){
 
-  for(
-    let i=0;
-    i<amount;
-    i++
-  ){
-
-    const item =
-
+    const piece =
       document.createElement(
         "div"
       );
 
-
-    item.className =
+    piece.className =
       "confetti";
 
-
-    item.style.left =
-
-      Math.random()
-      *100
-      +"vw";
-
-
-    item.style.background =
-
-      colors[
+    piece.textContent =
+      symbols[
         Math.floor(
-          Math.random()
-          *colors.length
+          Math.random() *
+          symbols.length
         )
       ];
 
+    piece.style.left =
+      Math.random() *
+      100 +
+      "vw";
 
-    item.style.animationDuration =
-
+    piece.style.fontSize =
       (
-        2.3
-        +
-        Math.random()*2
-      )
-      +"s";
+        12 +
+        Math.random() * 18
+      ) +
+      "px";
 
+    piece.style.animationDuration =
+      (
+        1.8 +
+        Math.random() * 2
+      ) +
+      "s";
 
-    item.style.transform =
-
-      "rotate("
-
-      +
-
-      Math.random()*360
-
-      +
-
-      "deg)";
-
+    piece.style.animationDelay =
+      (
+        Math.random() * .5
+      ) +
+      "s";
 
     document.body.appendChild(
-      item
+      piece
     );
-
 
     setTimeout(
       function(){
-
-        item.remove();
-
+        piece.remove();
       },
-
-      5000
+      4500
     );
 
   }
 
 }
-
 
 
 /* =========================
-   ガチャ
+   ガチャ実行
 ========================= */
 
+function playGacha(){
 
-function getGachaResult(){
+  if(hasUsedGacha()){
 
-  try{
+    alert(
+      "ガチャは1回までです。"
+    );
 
-    const saved =
+    return;
 
-      localStorage.getItem(
-        GACHA_KEY
-      );
+  }
 
+  const machine =
+    document.getElementById(
+      "gachaMachine"
+    );
 
-    if(
-      !saved
-    ){
+  const button =
+    document.getElementById(
+      "gachaButton"
+    );
 
-      return null;
-
-    }
-
-
-    return JSON.parse(
-      saved
+  const result =
+    document.getElementById(
+      "gachaResult"
     );
 
 
-  }catch(e){
-
-    return null;
-
+  if(!machine || !button || !result){
+    return;
   }
+
+
+  button.disabled = true;
+
+  machine.classList.add(
+    "spinning"
+  );
+
+  result.innerHTML =
+    `
+    <p>
+    ガチャガチャ抽選中…！
+    </p>
+    `;
+
+
+  setTimeout(function(){
+
+    machine.classList.remove(
+      "spinning"
+    );
+
+    const prize =
+      drawPrize();
+
+    /*
+      抽選済みとして保存
+    */
+
+    localStorage.setItem(
+      GACHA_KEY,
+      "1"
+    );
+
+
+    result.innerHTML =
+      `
+      <div class="prize">
+
+        <div class="prize-rank">
+        ${prize.rank}
+        </div>
+
+        <div class="prize-name">
+        ${prize.name}
+        </div>
+
+        <p>
+        おめでとうございます！
+        </p>
+
+      </div>
+      `;
+
+
+    createConfetti();
+
+
+    button.textContent =
+      "抽選済み";
+
+  },1800);
 
 }
 
 
+/* =========================
+   ガチャ表示
+========================= */
 
 function gachaHTML(){
 
-  const oldResult =
+  if(cleared.length !== 5){
 
-    getGachaResult();
+    return "";
+
+  }
 
 
-  if(
-    oldResult
-  ){
+  if(hasUsedGacha()){
 
     return `
-
     <div class="gacha-area">
 
       <div class="gacha-title">
-
-      🎁 ガチャ結果
-
+      🎁 ガチャ
       </div>
 
-
-      <div
-        class="gacha-result show"
-      >
-
-        <div class="result-rank">
-
-        ${oldResult.rank}
-
-        </div>
-
-
-        <div class="result-prize">
-
-        ${oldResult.prize}
-
-        </div>
-
+      <div class="gacha-machine">
+      🎰
       </div>
 
-
-      <div class="already">
-
-      ※ガチャは1人1回です。
-
+      <div class="used-message">
+      ガチャは抽選済みです。
       </div>
 
     </div>
-
     `;
 
   }
 
 
   return `
-
   <div class="gacha-area">
 
-
     <div class="gacha-title">
-
-    🎉 全問クリア特典
-
+    🎉 全問クリアガチャ
     </div>
-
 
     <div class="gacha-sub">
-
-    ガチャに1回挑戦できます！
-
+    全問正解おめでとう！<br>
+    1回だけガチャに挑戦できます。
     </div>
-
 
     <div
       class="gacha-machine"
       id="gachaMachine"
     >
+    🎰
+    </div>
+
+    <button
+      class="gacha-button"
+      id="gachaButton"
+      onclick="playGacha()"
+    >
+    ガチャを回す！
+    </button>
+
+    <div
+      class="gacha-result"
+      id="gachaResult"
+    ></div>
+
+  </div>
+  `;
+
+}
 
 
-      <div clas
+/* =========================
+   トップ
+========================= */
+
+function showTop(){
+
+  const count =
+    cleared.length;
+
+  let completeMessage = "";
+
+  if(count === 5){
+
+    completeMessage =
+      `
+      <div class="complete">
+      🎉 全問クリア！
+      </div>
+      `;
+
+  }
+
+
+  app.innerHTML =
+
+    logoHTML() +
+
+    `
+    <h1>
+    クイズラリー
+    </h1>
+
+    <p>
+    会場に設置されたQRコードを読み取って、
+    サッカールールクイズに挑戦しよう！
+    </p>
+
+    <button
+      class="scan-button"
+      onclick="scanQR()"
+    >
+    📷 QRコードを読み取る
+    </button>
+
+    <div class="stamp-title">
+    現在の取得スタンプ
+    </div>
+
+    ${stampHTML()}
+
+    <div class="count">
+    ${count} / 5
+    </div>
+
+    ${
+      count < 5
+      ?
+      `
+      <div class="remaining">
+      あと ${5-count} ポイント！
+      </div>
+      `
+      :
+      ""
+    }
+
+    ${completeMessage}
+
+    ${gachaHTML()}
+
+    <div class="note">
+    ※「QRコードを読み取る」を押して、
+    各ポイントに設置されたQRコードを
+    読み取ってください。
+    </div>
+    `;
+
+
+  setupSecretReset();
+
+}
+
+
+/* =========================
+   問題画面
+========================= */
+
+function showQuestion(number){
+
+  const q =
+    questions[number-1];
+
+
+  app.innerHTML =
+
+    logoHTML() +
+
+    `
+    <div class="point">
+    POINT ${number} / 5
+    </div>
+
+    ${stampHTML()}
+
+    <div class="question">
+    ${q.question}
+    </div>
+
+    <div id="choices"></div>
+
+    <div id="message"></div>
+
+    <button
+      class="home-button"
+      onclick="backHome()"
+    >
+    ← トップページに戻る
+    </button>
+    `;
+
+
+  const choices =
+    document.getElementById(
+      "choices"
+    );
+
+
+  q.choices.forEach(
+    function(text,index){
+
+      const button =
+        document.createElement(
+          "button"
+        );
+
+      button.className =
+        "choice";
+
+      button.textContent =
+        text;
+
+
+      button.onclick =
+        function(){
+
+          const message =
+            document.getElementById(
+              "message"
+            );
+
+
+          if(index !== q.correct){
+
+            message.innerHTML =
+              `
+              <p class="wrong">
+              ❌ 不正解！
+              もう一度挑戦してください。
+              </p>
+              `;
+
+            return;
+
+          }
+
+
+          if(
+            !cleared.includes(number)
+          ){
+
+            cleared.push(number);
+
+            cleared.sort(
+              function(a,b){
+                return a-b;
+              }
+            );
+
+            saveCleared();
+
+          }
+
+
+          const buttons =
+            choices.querySelectorAll(
+              "button"
+            );
+
+          buttons.forEach(
+            function(btn){
+              btn.disabled = true;
+            }
+          );
+
+
+          let finish = "";
+
+
+          if(cleared.length === 5){
+
+            finish =
+              `
+              <div class="complete">
+              🎉 全問クリア！
+              <br>
+              トップページでガチャに挑戦しよう！
+              </div>
+              `;
+
+            createConfetti();
+
+          }
+
+
+          message.innerHTML =
+            `
+            <p class="correct">
+            ⭕ 正解！
+            <br>
+            サッカーボールスタンプ獲得 ⚽
+            </p>
+
+            ${stampHTML()}
+
+            <div class="explanation">
+
+            <strong>
+            ${q.answer}
+            </strong>
